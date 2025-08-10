@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
     loadDiaryData();
 });
 
-// 감정 이모지 매핑 (전역 변수로 한 번만 정의)
+// 감정 이모지 매핑 (전역 변수로 한 번만 정의) - 이미지로 대체됨
 const emotionEmojis = {
-    'happy': '😊',
-    'sad': '😢',
-    'surprised': '😲',
-    'angry': '😠',
-    'other': '🤔'
+    'happy': '',
+    'sad': '',
+    'surprised': '',
+    'angry': '',
+    'other': ''
 };
 
 // URL에서 일기 데이터 가져오기
@@ -26,9 +26,6 @@ function loadDiaryData() {
     // 기분 설정
     const moodText = getEmotionText(emotion);
     document.getElementById('moodText').textContent = moodText;
-    
-    // 기분에 따른 이모지 설정
-    document.querySelector('.mood-icon').textContent = emotionEmojis[emotion] || '😊';
     
     // 날짜 설정
     document.getElementById('detailDate').textContent = `${date} 작성`;
@@ -89,9 +86,6 @@ function saveEdit() {
     // 기분 업데이트
     const emotionText = getEmotionText(selectedEmotion);
     document.getElementById('moodText').textContent = emotionText;
-
-    // 기분 이모지 업데이트
-    document.querySelector('.mood-icon').textContent = emotionEmojis[selectedEmotion] || '😊';
     
     // 감정에 따른 색상 설정 업데이트
     const moodContainer = document.querySelector('.diary-detail__mood');

@@ -88,12 +88,30 @@ body {
 }
 
 .mood-icon {
-    font-size: 32px;
     width: 32px;
     height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: 50% / cover no-repeat;
+}
+
+/* 기분별 이미지 설정 */
+.diary-detail__mood.happy .mood-icon {
+    background-image: url('./assets/images/행복해요-s.png');
+}
+
+.diary-detail__mood.sad .mood-icon {
+    background-image: url('./assets/images/슬퍼요-s.png');
+}
+
+.diary-detail__mood.surprised .mood-icon {
+    background-image: url('./assets/images/놀랐어요-s.png');
+}
+
+.diary-detail__mood.angry .mood-icon {
+    background-image: url('./assets/images/화나요-s.png');
+}
+
+.diary-detail__mood.other .mood-icon {
+    background-image: url('./assets/images/기타-s.png');
 }
 
 /* 기분별 색상 설정 */
