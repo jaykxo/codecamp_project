@@ -41,54 +41,50 @@
             <!-- 일기 수정 폼 -->
             <div class="diary-edit" id="diaryEditView" style="display: none;">
                 <div class="edit-form">
-                    <h2 class="edit-form__title">일기 수정</h2>
                     
                     <!-- 기분 선택 -->
-                    <div class="form-section">
-                        <label class="form-label">오늘 기분은 어땠나요?</label>
-                        <div class="mood-options">
-                            <label class="mood-option">
-                                <input type="radio" name="mood" value="happy" id="moodHappy">
-                                <span class="mood-text">행복해요</span>
+                    <div class="form-section1">
+                        <label class="emotion-label">오늘 기분은 어땠나요?</label>
+                        <div class="emotion-options">
+                            <label class="emotion-option">
+                                <input type="radio" name="emotion" value="happy" id="emotionHappy">
+                                <span class="emotion-text">행복해요</span>
                             </label>
-                            <label class="mood-option">
-                                <input type="radio" name="mood" value="sad" id="moodSad">
-                                <span class="mood-text">슬퍼요</span>
+                            <label class="emotion-option">
+                                <input type="radio" name="emotion" value="sad" id="emotionSad">
+                                <span class="emotion-text">슬퍼요</span>
                             </label>
-                            <label class="mood-option">
-                                <input type="radio" name="mood" value="surprised" id="moodSurprised">
-                                <span class="mood-text">놀랐어요</span>
+                            <label class="emotion-option">
+                                <input type="radio" name="emotion" value="surprised" id="emotionSurprised">
+                                <span class="emotion-text">놀랐어요</span>
                             </label>
-                            <label class="mood-option">
-                                <input type="radio" name="mood" value="angry" id="moodAngry">
-                                <span class="mood-text">화나요</span>
+                            <label class="emotion-option">
+                                <input type="radio" name="emotion" value="angry" id="emotionAngry">
+                                <span class="emotion-text">화나요</span>
                             </label>
-                            <label class="mood-option">
-                                <input type="radio" name="mood" value="other" id="moodOther">
-                                <span class="mood-text">기타</span>
+                            <label class="emotion-option">
+                                <input type="radio" name="emotion" value="other" id="emotionOther">
+                                <span class="emotion-text">기타</span>
                             </label>
                         </div>
                     </div>
 
                     <!-- 제목 입력 -->
-                    <div class="form-section">
+                    <div class="form-section2">
                         <label class="form-label">제목</label>
                         <input type="text" class="form-input" id="editTitle" placeholder="이것은 타이틀 입니다.">
                     </div>
 
                     <!-- 내용 입력 -->
-                    <div class="form-section">
-                        <label class="form-label">
-                            내용
-                            <span class="format-icon">T</span>
-                        </label>
+                    <div class="form-section2">
+                        <label class="form-label">내용</label>
                         <textarea class="form-textarea" id="editContent" placeholder="내용이 들어갑니다" rows="10"></textarea>
                     </div>
 
                     <!-- 버튼 -->
                     <div class="form-actions">
-                        <button class="btn btn-secondary" onclick="cancelEdit()">취소</button>
-                        <button class="btn btn-primary" onclick="saveEdit()">수정 하기</button>
+                        <button class="btn btn-secondary" onclick="cancelEdit()"><span class="btn-text">취소</span></button>
+                        <button class="btn btn-primary" onclick="saveEdit()"><span class="btn-text">수정 하기</span></button>
                     </div>
                 </div>
             </div>
@@ -101,6 +97,15 @@
             loadDiaryData();
         });
         
+        // 감정 이모지 매핑 (전역 변수로 한 번만 정의)
+        const emotionEmojis = {
+            'happy': '😊',
+            'sad': '😢',
+            'surprised': '😲',
+            'angry': '😠',
+            'other': '🤔'
+        };
+
         // URL에서 일기 데이터 가져오기
         function loadDiaryData() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -108,8 +113,6 @@
             const emotion = urlParams.get('emotion') || 'happy';
             const date = urlParams.get('date') || '2024.07.12';
             const content = urlParams.get('content') || '';
-            
-            console.log('URL 파라미터:', { title, emotion, date, content });
             
             // 제목 설정
             document.getElementById('detailTitle').textContent = title;
@@ -119,18 +122,10 @@
             document.getElementById('moodText').textContent = moodText;
             
             // 기분에 따른 이모지 설정
-            const emotionEmojis = {
-                'happy': '😊',
-                'sad': '😢',
-                'surprised': '😲',
-                'angry': '😠',
-                'other': '🤔'
-            };
             document.querySelector('.mood-icon').textContent = emotionEmojis[emotion] || '😊';
             
             // 날짜 설정
-            const dateElement = document.getElementById('detailDate');
-            dateElement.textContent = `${date} 작성`;
+            document.getElementById('detailDate').textContent = `${date} 작성`;
             
             // 내용 설정
             const contentElement = document.getElementById('contentText');
@@ -140,15 +135,15 @@
             
             // 감정에 따른 색상 설정 (CSS 클래스로 적용)
             const moodContainer = document.querySelector('.diary-detail__mood');
-            moodContainer.className = 'diary-detail__mood';
+            moodContainer.classList.remove('happy', 'sad', 'surprised', 'angry', 'other');
             moodContainer.classList.add(emotion);
 
             // 수정 폼에도 현재 데이터 설정
             document.getElementById('editTitle').value = title;
-            document.getElementById('editContent').value = content || '내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다';
+            document.getElementById('editContent').value = content || '내용이 들어갑니다';
             
             // 현재 기분에 맞는 라디오 버튼 선택
-            document.getElementById(`mood${emotion.charAt(0).toUpperCase() + emotion.slice(1)}`).checked = true;
+            document.getElementById(`emotion${emotion.charAt(0).toUpperCase() + emotion.slice(1)}`).checked = true;
         }
         
         // 감정 텍스트 변환 함수
@@ -171,7 +166,7 @@
         
         // 수정 취소
         function cancelEdit() {
-            document.getElementById('diaryDetailView').style.display = 'block';
+            document.getElementById('diaryDetailView').style.display = 'flex';
             document.getElementById('diaryEditView').style.display = 'none';
         }
         
@@ -179,30 +174,23 @@
         function saveEdit() {
             const newTitle = document.getElementById('editTitle').value;
             const newContent = document.getElementById('editContent').value;
-            const selectedMood = document.querySelector('input[name="mood"]:checked').value;
+            const selectedEmotion = document.querySelector('input[name="emotion"]:checked').value;
             
             // 상세 보기에 업데이트된 내용 반영
             document.getElementById('detailTitle').textContent = newTitle;
             document.getElementById('contentText').innerHTML = `<p>${newContent}</p>`;
             
             // 기분 업데이트
-            const moodText = getEmotionText(selectedMood);
-            document.getElementById('moodText').textContent = moodText;
+            const emotionText = getEmotionText(selectedEmotion);
+            document.getElementById('moodText').textContent = emotionText;
             
             // 기분 이모지 업데이트
-            const emotionEmojis = {
-                'happy': '😊',
-                'sad': '😢',
-                'surprised': '😲',
-                'angry': '😠',
-                'other': '🤔'
-            };
-            document.querySelector('.mood-icon').textContent = emotionEmojis[selectedMood] || '😊';
+            document.querySelector('.mood-icon').textContent = emotionEmojis[selectedEmotion] || '😊';
             
             // 감정에 따른 색상 설정 업데이트
             const moodContainer = document.querySelector('.diary-detail__mood');
-            moodContainer.className = 'diary-detail__mood';
-            moodContainer.classList.add(selectedMood);
+            moodContainer.classList.remove('happy', 'sad', 'surprised', 'angry', 'other');
+            moodContainer.classList.add(selectedEmotion);
             
             // 상세 보기로 돌아가기
             cancelEdit();
@@ -210,10 +198,7 @@
             alert('일기가 수정되었습니다!');
         }
         
-        // 목록으로 돌아가기
-        function goBack() {
-            window.location.href = 'index.html';
-        }
+
     </script>
 </body>
 </html> 
