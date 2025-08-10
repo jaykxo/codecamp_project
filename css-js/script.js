@@ -2,6 +2,31 @@
 const diaryForm = document.getElementById('diaryForm');
 const navTabs = document.querySelectorAll('.nav-tab');
 
+// 일기 데이터 배열
+let diaries = [];
+
+// localStorage에서 일기 데이터 불러오기
+function loadDiariesFromStorage() {
+    const storedDiaries = localStorage.getItem('diaries');
+    if (storedDiaries) {
+        try {
+            diaries = JSON.parse(storedDiaries);
+            // 저장된 일기들을 화면에 렌더링
+            diaries.forEach(diary => {
+                addDiaryCard(diary);
+            });
+        } catch (error) {
+            console.error('localStorage 데이터 파싱 오류:', error);
+            diaries = [];
+        }
+    }
+}
+
+// localStorage에 일기 데이터 저장하기
+function saveDiariesToStorage() {
+    localStorage.setItem('diaries', JSON.stringify(diaries));
+}
+
 // 페이지 전환 함수
 function showDiaryList() {
     document.getElementById('diarySection').style.display = 'flex';
@@ -134,6 +159,8 @@ diaryForm.addEventListener('submit', function(e) {
     };
     
     addDiaryCard(newDiary);
+    diaries.push(newDiary); // 배열에 추가
+    saveDiariesToStorage(); // 저장
     
     this.reset();
     this.querySelector('input[value="happy"]').checked = true;
@@ -157,26 +184,31 @@ navTabs.forEach(tab => {
 
 // 이벤트 리스너 추가
 document.addEventListener('DOMContentLoaded', function() {
-    // 기존 카드들을 <a> 태그로 감싸기
-    document.querySelectorAll('.diary-card').forEach(card => {
-        const title = card.querySelector('.card-title').textContent;
-        const date = card.querySelector('.card-date').textContent;
-        const emotion = card.classList.contains('happy') ? 'happy' : 
-                        card.classList.contains('sad') ? 'sad' :
-                        card.classList.contains('surprised') ? 'surprised' :
-                        card.classList.contains('angry') ? 'angry' : 'other';
-        
-        // <a> 태그 생성
-        const linkElement = document.createElement('a');
-        linkElement.href = `diary-detail.html?id=${Date.now()}&title=${encodeURIComponent(title)}&emotion=${emotion}&date=${encodeURIComponent(date)}&content=${encodeURIComponent('기존 일기 내용입니다. (내용은 표시되지 않습니다.)')}`;
-        linkElement.style.textDecoration = 'none';
-        linkElement.style.color = 'inherit';
-        linkElement.style.display = 'block';
-        
-        // 카드를 <a> 태그로 감싸기
-        card.parentNode.insertBefore(linkElement, card);
-        linkElement.appendChild(card);
-    });
+    loadDiariesFromStorage(); // 페이지 로드 시 데이터 로드
+    
+    // localStorage에 데이터가 없는 경우에만 기존 HTML 카드들을 처리
+    if (diaries.length === 0) {
+        // 기존 카드들을 <a> 태그로 감싸기
+        document.querySelectorAll('.diary-card').forEach(card => {
+            const title = card.querySelector('.card-title').textContent;
+            const date = card.querySelector('.card-date').textContent;
+            const emotion = card.classList.contains('happy') ? 'happy' : 
+                            card.classList.contains('sad') ? 'sad' :
+                            card.classList.contains('surprised') ? 'surprised' :
+                            card.classList.contains('angry') ? 'angry' : 'other';
+            
+            // <a> 태그 생성
+            const linkElement = document.createElement('a');
+            linkElement.href = `diary-detail.html?id=${Date.now()}&title=${encodeURIComponent(title)}&emotion=${emotion}&date=${encodeURIComponent(date)}&content=${encodeURIComponent('기존 일기 내용입니다. (내용은 표시되지 않습니다.)')}`;
+            linkElement.style.textDecoration = 'none';
+            linkElement.style.color = 'inherit';
+            linkElement.style.display = 'block';
+            
+            // 카드를 <a> 태그로 감싸기
+            card.parentNode.insertBefore(linkElement, card);
+            linkElement.appendChild(card);
+        });
+    }
     
     // 뒤로가기 버튼 이벤트
     document.getElementById('backBtn').addEventListener('click', showDiaryList);
