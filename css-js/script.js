@@ -83,6 +83,13 @@ function createDiaryCard(diary) {
     const cardDiv = document.createElement('div');
     cardDiv.className = `diary-card ${diary.emotion}`;
     
+    // <a> 태그로 감싸기
+    const linkElement = document.createElement('a');
+    linkElement.href = `diary-detail.html?id=${diary.id || Date.now()}&title=${encodeURIComponent(diary.title)}&emotion=${diary.emotion}&date=${encodeURIComponent(diary.date)}&content=${encodeURIComponent(diary.content || '')}`;
+    linkElement.style.textDecoration = 'none';
+    linkElement.style.color = 'inherit';
+    linkElement.style.display = 'block';
+    
     cardDiv.innerHTML = `
         <div class="card-image"></div>
         <div class="card-contents">
@@ -94,17 +101,10 @@ function createDiaryCard(diary) {
         </div>
     `;
     
-    // 클릭 이벤트 수정 - 새 상세페이지로 이동
-    cardDiv.addEventListener('click', () => {
-        const diaryData = {
-            ...diary,
-            emotionText: getEmotionText(diary.emotion)
-        };
-        // 새 상세페이지로 이동
-        window.location.href = `diary-detail.html?id=${diary.id || Date.now()}&title=${encodeURIComponent(diary.title)}&emotion=${diary.emotion}&date=${encodeURIComponent(diary.date)}&content=${encodeURIComponent(diary.content || '')}`;
-    });
+    // <a> 태그 안에 카드 내용 넣기
+    linkElement.appendChild(cardDiv);
     
-    return cardDiv;
+    return linkElement;
 }
 
 // 일기목록에 새 카드 추가 함수
@@ -157,19 +157,25 @@ navTabs.forEach(tab => {
 
 // 이벤트 리스너 추가
 document.addEventListener('DOMContentLoaded', function() {
-    // 기존 카드 클릭 이벤트 추가 - 새 상세페이지로 이동
+    // 기존 카드들을 <a> 태그로 감싸기
     document.querySelectorAll('.diary-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const title = card.querySelector('.card-title').textContent;
-            const date = card.querySelector('.card-date').textContent;
-            const emotion = card.classList.contains('happy') ? 'happy' : 
-                           card.classList.contains('sad') ? 'sad' :
-                           card.classList.contains('surprised') ? 'surprised' :
-                           card.classList.contains('angry') ? 'angry' : 'other';
-            
-            // 새 상세페이지로 이동
-            window.location.href = `diary-detail.html?id=${Date.now()}&title=${encodeURIComponent(title)}&emotion=${emotion}&date=${encodeURIComponent(date)}&content=${encodeURIComponent('기존 일기 내용입니다. (내용은 표시되지 않습니다.)')}`;
-        });
+        const title = card.querySelector('.card-title').textContent;
+        const date = card.querySelector('.card-date').textContent;
+        const emotion = card.classList.contains('happy') ? 'happy' : 
+                        card.classList.contains('sad') ? 'sad' :
+                        card.classList.contains('surprised') ? 'surprised' :
+                        card.classList.contains('angry') ? 'angry' : 'other';
+        
+        // <a> 태그 생성
+        const linkElement = document.createElement('a');
+        linkElement.href = `diary-detail.html?id=${Date.now()}&title=${encodeURIComponent(title)}&emotion=${emotion}&date=${encodeURIComponent(date)}&content=${encodeURIComponent('기존 일기 내용입니다. (내용은 표시되지 않습니다.)')}`;
+        linkElement.style.textDecoration = 'none';
+        linkElement.style.color = 'inherit';
+        linkElement.style.display = 'block';
+        
+        // 카드를 <a> 태그로 감싸기
+        card.parentNode.insertBefore(linkElement, card);
+        linkElement.appendChild(card);
     });
     
     // 뒤로가기 버튼 이벤트
