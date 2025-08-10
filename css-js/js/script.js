@@ -1,3 +1,5 @@
+import { getEmotionColor, getEmotionText, applyEmotionClass } from './utils.js';
+
 // DOM 요소들
 const diaryForm = document.getElementById('diaryForm');
 const navTabs = document.querySelectorAll('.nav-tab');
@@ -57,50 +59,14 @@ function showDiaryDetail(diary) {
         `;
     }
     
-    // 감정에 따른 색상과 이모지 설정
+    // 감정에 따른 색상 설정
     const emotionElement = document.getElementById('detailEmotion');
     emotionElement.style.color = getEmotionColor(diary.emotion);
-    
-    // 감정에 따른 이모지 설정
-    const emotionEmojis = {
-        'happy': '😊',
-        'sad': '😢',
-        'surprised': '😲',
-        'angry': '😠',
-        'other': '🤔'
-    };
-    
-    // CSS 변수로 이모지 설정
-    emotionElement.style.setProperty('--emotion-emoji', `"${emotionEmojis[diary.emotion] || '😊'}"`);
     
     // 페이지 전환
     document.getElementById('diarySection').style.display = 'none';
     document.getElementById('formSection').style.display = 'none';
     document.getElementById('diaryDetailSection').style.display = 'flex';
-}
-
-// 감정별 색상 반환 함수
-function getEmotionColor(emotion) {
-    const colors = {
-        'happy': '#EA5757',
-        'sad': '#28B4E1',
-        'surprised': '#D59029',
-        'angry': '#777777',
-        'other': '#A229ED'
-    };
-    return colors[emotion] || '#333';
-}
-
-// 감정 텍스트 변환 함수
-function getEmotionText(emotion) {
-    const texts = {
-        'happy': '행복해요',
-        'sad': '슬퍼요',
-        'surprised': '놀랐어요',
-        'angry': '화나요',
-        'other': '기타'
-    };
-    return texts[emotion] || '기타';
 }
 
 // 일기 카드 생성 함수
