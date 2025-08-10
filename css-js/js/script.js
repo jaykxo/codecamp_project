@@ -76,7 +76,7 @@ function createDiaryCard(diary) {
     
     // <a> 태그로 감싸기
     const linkElement = document.createElement('a');
-    linkElement.href = `diary-detail.html?id=${diary.id || Date.now()}&title=${encodeURIComponent(diary.title)}&emotion=${diary.emotion}&date=${encodeURIComponent(diary.date)}&content=${encodeURIComponent(diary.content || '')}`;
+            linkElement.href = `/css-js/pages/diary-detail.html?id=${diary.id || Date.now()}&title=${encodeURIComponent(diary.title)}&emotion=${diary.emotion}&date=${encodeURIComponent(diary.date)}&content=${encodeURIComponent(diary.content || '')}`;
     linkElement.style.textDecoration = 'none';
     linkElement.style.color = 'inherit';
     linkElement.style.display = 'block';
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // <a> 태그 생성
             const linkElement = document.createElement('a');
-            linkElement.href = `diary-detail.html?id=${Date.now()}&title=${encodeURIComponent(title)}&emotion=${emotion}&date=${encodeURIComponent(date)}&content=${encodeURIComponent('기존 일기 내용입니다. (내용은 표시되지 않습니다.)')}`;
+            linkElement.href = `/css-js/pages/diary-detail.html?id=${Date.now()}&title=${encodeURIComponent(title)}&emotion=${emotion}&date=${encodeURIComponent(date)}&content=${encodeURIComponent('기존 일기 내용입니다. (내용은 표시되지 않습니다.)')}`;
             linkElement.style.textDecoration = 'none';
             linkElement.style.color = 'inherit';
             linkElement.style.display = 'block';
