@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>민지의 다이어리</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1 class="site-title">민지의 다이어리</h1>
+    </header>
+
+    <!-- Banner -->
+    <section class="banner">
+    </section>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-tab active" data-tab="diary">일기보관함</div>
+        <div class="nav-tab" data-tab="photo">사진보관함</div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Left Section: Diary Cards -->
+        <section class="diary-section">
+            <div class="diary-cards" id="diaryCards">
+                <!-- 슬퍼요 카드 -->
+                <div class="diary-card sad">
+                    <div class="card-image"></div>
+                    <div class="card-contents">
+                        <div class="card-division">
+                            <div class="card-emotion"></div>
+                            <div class="card-date">2024.03.12</div> 
+                        </div>
+                        <div class="card-title">타이틀 영역입니다. 한줄까지만 노출됩니다.</div>
+                    </div>
+                </div> 
+                
+                <!-- 놀랐어요 카드 -->
+                <div class="diary-card surprised">
+                    <div class="card-image"></div>
+                    <div class="card-contents">
+                        <div class="card-division">
+                            <div class="card-emotion"></div>
+                            <div class="card-date">2024.03.12</div> 
+                        </div>
+                        <div class="card-title">타이틀 영역입니다.</div>
+                    </div>
+                </div>
+                
+                <!-- 화나요 카드 -->
+                <div class="diary-card angry">
+                    <div class="card-image"></div>
+                    <div class="card-contents">
+                        <div class="card-division">
+                            <div class="card-emotion"></div>
+                            <div class="card-date">2024.03.12</div> 
+                        </div>
+                        <div class="card-title">타이틀 영역입니다. 한줄까지만 노출됩니다.</div>
+                    </div>
+                </div>
+                
+                <!-- 행복해요 카드 -->
+                <div class="diary-card happy">
+                    <div class="card-image"></div>
+                    <div class="card-contents">
+                        <div class="card-division">
+                            <div class="card-emotion"></div>
+                            <div class="card-date">2024.03.12</div> 
+                        </div>
+                        <div class="card-title">타이틀 영역입니다.</div>
+                    </div>
+                </div>
+                
+                <!-- 기타 카드 -->
+                <div class="diary-card other">
+                    <div class="card-image"></div>
+                    <div class="card-contents">
+                        <div class="card-division">
+                            <div class="card-emotion"></div>
+                            <div class="card-date">2024.03.12</div> 
+                        </div>
+                        <div class="card-title">타이틀 영역입니다. 한줄까지만 노출됩니다.</div>
+                    </div>
+                </div>
+                
+                <!-- 행복해요 카드 2 -->
+                <div class="diary-card happy">
+                    <div class="card-image"></div>
+                    <div class="card-contents">
+                        <div class="card-division">
+                            <div class="card-emotion"></div>
+                            <div class="card-date">2024.03.12</div> 
+                        </div>
+                        <div class="card-title">타이틀 영역입니다.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Section: Diary Form -->
+        <section class="form-section">
+                <div class="form-title">
+                    📍 일기 쓰기
+                </div>
+                
+                <form id="diaryForm">
+                    <div class="emotion-area">
+                        <label class="title-label">오늘 기분은 어땠나요?</label>
+                        <div class="emotion-options">
+                            <label class="emotion-option">
+                                <input type="radio" name="emotion" value="happy" checked>
+                                <span class="emotion-text">행복해요</span>
+                            </label>
+                            <label class="emotion-option">
+                                <input type="radio" name="emotion" value="sad">
+                                <span class="emotion-text">슬퍼요</span>
+                            </label>
+                            <label class="emotion-option">
+                                <input type="radio" name="emotion" value="surprised">
+                                <span class="emotion-text">놀랐어요</span>
+                            </label>
+                            <label class="emotion-option">
+                                <input type="radio" name="emotion" value="angry">
+                                <span class="emotion-text">화나요</span>
+                            </label>
+                            <label class="emotion-option">
+                                <input type="radio" name="emotion" value="other">
+                                <span class="emotion-text">기타</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="text-area">
+                        <div class="text-area-inside">
+                            <label for="title" class="form-label">제목</label>
+                            <input type="text" id="title" name="title" class="form-input" placeholder="제목을 입력해 주세요." required>
+                        </div>
+                        <div class="text-area-inside">
+                            <label for="content" class="form-label">내용</label>
+                            <textarea id="content" name="content" class="form-textarea" placeholder="내용을 입력해 주세요." required></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <span class="submit-text">등록하기</span>
+                    </button>
+                </form>
+            </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-area">
+            <p class="footer-text1">민지의 다이어리</p>
+            <p class="footer-text2">대표: {name}</p>
+            <p class="footer-text3">Copyright © 2024. {name} Co., Ltd.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
