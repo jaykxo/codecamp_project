@@ -7,27 +7,21 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <h1 class="site-title">민지의 다이어리</h1>
     </header>
 
-    <!-- Banner -->
     <section class="banner">
     </section>
 
-    <!-- Navigation -->
     <nav class="nav">
         <div class="nav-tab active" data-tab="diary">일기보관함</div>
         <div class="nav-tab" data-tab="photo">사진보관함</div>
     </nav>
 
-    <!-- Main Content -->
     <main class="main">
-        <!-- Left Section: Diary Cards -->
         <section class="diary-section">
             <div class="diary-cards" id="diaryCards">
-                <!-- 슬퍼요 카드 -->
                 <a href="pages/diary-detail.html?id=1&title=타이틀 영역입니다. 한줄까지만 노출됩니다.&emotion=sad&date=2024.03.12&content=기존 일기 내용입니다. (내용은 표시되지 않습니다.)" style="text-decoration: none; color: inherit; display: block;">
                     <div class="diary-card sad">
                         <div class="card-image"></div>
@@ -41,7 +35,6 @@
                     </div>
                 </a>
                 
-                <!-- 놀랐어요 카드 -->
                 <a href="pages/diary-detail.html?id=2&title=타이틀 영역입니다.&emotion=surprised&date=2024.03.12&content=기존 일기 내용입니다. (내용은 표시되지 않습니다.)" style="text-decoration: none; color: inherit; display: block;">
                     <div class="diary-card surprised">
                         <div class="card-image"></div>
@@ -55,7 +48,6 @@
                     </div>
                 </a>
                 
-                <!-- 화나요 카드 -->
                 <a href="pages/diary-detail.html?id=3&title=타이틀 영역입니다. 한줄까지만 노출됩니다.&emotion=angry&date=2024.03.12&content=기존 일기 내용입니다. (내용은 표시되지 않습니다.)" style="text-decoration: none; color: inherit; display: block;">
                     <div class="diary-card angry">
                         <div class="card-image"></div>
@@ -69,7 +61,6 @@
                     </div>
                 </a>
                 
-                <!-- 행복해요 카드 -->
                 <a href="pages/diary-detail.html?id=4&title=타이틀 영역입니다.&emotion=happy&date=2024.03.12&content=기존 일기 내용입니다. (내용은 표시되지 않습니다.)" style="text-decoration: none; color: inherit; display: block;">
                     <div class="diary-card happy">
                         <div class="card-image"></div>
@@ -83,7 +74,6 @@
                     </div>
                 </a>
                 
-                <!-- 기타 카드 -->
                 <a href="pages/diary-detail.html?id=5&title=타이틀 영역입니다. 한줄까지만 노출됩니다.&emotion=other&date=2024.03.12&content=기존 일기 내용입니다. (내용은 표시되지 않습니다.)" style="text-decoration: none; color: inherit; display: block;">
                     <div class="diary-card other">
                         <div class="card-image"></div>
@@ -97,7 +87,6 @@
                     </div>
                 </a>
                 
-                <!-- 행복해요 카드 2 -->
                 <a href="pages/diary-detail.html?id=6&title=타이틀 영역입니다.&emotion=happy&date=2024.03.12&content=기존 일기 내용입니다. (내용은 표시되지 않습니다.)" style="text-decoration: none; color: inherit; display: block;">
                     <div class="diary-card happy">
                         <div class="card-image"></div>
@@ -113,7 +102,6 @@
             </div>
         </section>
 
-        <!-- Right Section: Diary Form -->
         <section class="form-section">
                 <div class="form-title">
                     📍 일기 쓰기
@@ -145,6 +133,7 @@
                             </label>
                         </div>
                     </div>
+                    
                     <div class="text-area">
                         <div class="text-area-inside">
                             <label for="title" class="form-label">제목</label>
@@ -155,6 +144,7 @@
                             <textarea id="content" name="content" class="form-textarea" placeholder="내용을 입력해 주세요." required></textarea>
                         </div>
                     </div>
+                    
                     <button type="submit" class="submit-btn">
                         <span class="submit-text">등록하기</span>
                     </button>
@@ -162,7 +152,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-area">
             <p class="footer-text1">민지의 다이어리</p>

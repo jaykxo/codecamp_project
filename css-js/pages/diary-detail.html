@@ -12,11 +12,11 @@
         </header>
         
         <main class="main">
-            <!-- 일기 상세 보기 -->
             <div class="diary-detail" id="diaryDetailView">
                 <div class="diary-detail__header">
                     <h2 class="diary-detail__title" id="detailTitle"></h2>
                 </div>
+                
                 <div class="diary-detail__meta">
                     <div class="diary-detail__mood">
                         <span class="mood-icon"></span>
@@ -37,11 +37,9 @@
                 </div>
             </div>
 
-            <!-- 일기 수정 폼 -->
             <div class="diary-edit" id="diaryEditView" style="display: none;">
                 <div class="edit-form">
                     
-                    <!-- 기분 선택 -->
                     <div class="form-section1">
                         <label class="emotion-label">오늘 기분은 어땠나요?</label>
                         <div class="emotion-options">
@@ -68,19 +66,16 @@
                         </div>
                     </div>
 
-                    <!-- 제목 입력 -->
                     <div class="form-section2">
                         <label class="form-label">제목</label>
                         <input type="text" class="form-input" id="editTitle" placeholder="이것은 타이틀 입니다.">
                     </div>
 
-                    <!-- 내용 입력 -->
                     <div class="form-section2">
                         <label class="form-label">내용</label>
                         <textarea class="form-textarea" id="editContent" placeholder="내용이 들어갑니다" rows="10"></textarea>
                     </div>
 
-                    <!-- 버튼 -->
                     <div class="form-actions">
                         <button class="btn btn-secondary" onclick="cancelEdit()"><span class="btn-text">취소</span></button>
                         <button class="btn btn-primary" onclick="saveEdit()"><span class="btn-text">수정 하기</span></button>
