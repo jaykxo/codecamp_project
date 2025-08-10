@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>민지의 다이어리 - 일기 상세</title>
+    <link rel="stylesheet" href="./diary-detail.css"/>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="header__title">민지의 다이어리</h1>
+        </header>
+        
+        <main class="main">
+            <!-- 일기 상세 보기 -->
+            <div class="diary-detail" id="diaryDetailView">
+                <div class="diary-detail__header">
+                    <h2 class="diary-detail__title" id="detailTitle"></h2>
+                </div>
+                <div class="diary-detail__meta">
+                    <div class="diary-detail__mood">
+                        <span class="mood-icon"></span>
+                        <span class="mood-text" id="moodText"></span>
+                    </div>
+                    <div class="diary-detail__date" id="detailDate"></div>
+                </div>
+                
+                <div class="diary-detail__content">
+                    <h3 class="content-label">내용</h3>
+                    <div class="content-text" id="contentText">
+                        <p>내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다</p>
+                    </div>
+                </div>
+                
+                <div class="diary-detail__actions">
+                    <button class="edit-button" onclick="showEditForm()">수정</button>
+                </div>
+            </div>
+
+            <!-- 일기 수정 폼 -->
+            <div class="diary-edit" id="diaryEditView" style="display: none;">
+                <div class="edit-form">
+                    <h2 class="edit-form__title">일기 수정</h2>
+                    
+                    <!-- 기분 선택 -->
+                    <div class="form-section">
+                        <label class="form-label">오늘 기분은 어땠나요?</label>
+                        <div class="mood-options">
+                            <label class="mood-option">
+                                <input type="radio" name="mood" value="happy" id="moodHappy">
+                                <span class="mood-text">행복해요</span>
+                            </label>
+                            <label class="mood-option">
+                                <input type="radio" name="mood" value="sad" id="moodSad">
+                                <span class="mood-text">슬퍼요</span>
+                            </label>
+                            <label class="mood-option">
+                                <input type="radio" name="mood" value="surprised" id="moodSurprised">
+                                <span class="mood-text">놀랐어요</span>
+                            </label>
+                            <label class="mood-option">
+                                <input type="radio" name="mood" value="angry" id="moodAngry">
+                                <span class="mood-text">화나요</span>
+                            </label>
+                            <label class="mood-option">
+                                <input type="radio" name="mood" value="other" id="moodOther">
+                                <span class="mood-text">기타</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 제목 입력 -->
+                    <div class="form-section">
+                        <label class="form-label">제목</label>
+                        <input type="text" class="form-input" id="editTitle" placeholder="이것은 타이틀 입니다.">
+                    </div>
+
+                    <!-- 내용 입력 -->
+                    <div class="form-section">
+                        <label class="form-label">
+                            내용
+                            <span class="format-icon">T</span>
+                        </label>
+                        <textarea class="form-textarea" id="editContent" placeholder="내용이 들어갑니다" rows="10"></textarea>
+                    </div>
+
+                    <!-- 버튼 -->
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" onclick="cancelEdit()">취소</button>
+                        <button class="btn btn-primary" onclick="saveEdit()">수정 하기</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 페이지 로드 시 일기 데이터 로드
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDiaryData();
+        });
+        
+        // URL에서 일기 데이터 가져오기
+        function loadDiaryData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const title = urlParams.get('title') || '이것은 타이틀 입니다.';
+            const emotion = urlParams.get('emotion') || 'happy';
+            const date = urlParams.get('date') || '2024.07.12';
+            const content = urlParams.get('content') || '';
+            
+            console.log('URL 파라미터:', { title, emotion, date, content });
+            
+            // 제목 설정
+            document.getElementById('detailTitle').textContent = title;
+            
+            // 기분 설정
+            const moodText = getEmotionText(emotion);
+            document.getElementById('moodText').textContent = moodText;
+            
+            // 기분에 따른 이모지 설정
+            const emotionEmojis = {
+                'happy': '😊',
+                'sad': '😢',
+                'surprised': '😲',
+                'angry': '😠',
+                'other': '🤔'
+            };
+            document.querySelector('.mood-icon').textContent = emotionEmojis[emotion] || '😊';
+            
+            // 날짜 설정
+            const dateElement = document.getElementById('detailDate');
+            dateElement.textContent = `${date} 작성`;
+            
+            // 내용 설정
+            const contentElement = document.getElementById('contentText');
+            if (content && content !== '기존 일기 내용입니다. (내용은 표시되지 않습니다.)') {
+                contentElement.innerHTML = `<p>${content}</p>`;
+            }
+            
+            // 감정에 따른 색상 설정 (CSS 클래스로 적용)
+            const moodContainer = document.querySelector('.diary-detail__mood');
+            moodContainer.className = 'diary-detail__mood';
+            moodContainer.classList.add(emotion);
+
+            // 수정 폼에도 현재 데이터 설정
+            document.getElementById('editTitle').value = title;
+            document.getElementById('editContent').value = content || '내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다';
+            
+            // 현재 기분에 맞는 라디오 버튼 선택
+            document.getElementById(`mood${emotion.charAt(0).toUpperCase() + emotion.slice(1)}`).checked = true;
+        }
+        
+        // 감정 텍스트 변환 함수
+        function getEmotionText(emotion) {
+            const texts = {
+                'happy': '행복해요',
+                'sad': '슬퍼요',
+                'surprised': '놀랐어요',
+                'angry': '화나요',
+                'other': '기타'
+            };
+            return texts[emotion] || '기타';
+        }
+        
+        // 수정 폼 보여주기
+        function showEditForm() {
+            document.getElementById('diaryDetailView').style.display = 'none';
+            document.getElementById('diaryEditView').style.display = 'block';
+        }
+        
+        // 수정 취소
+        function cancelEdit() {
+            document.getElementById('diaryDetailView').style.display = 'block';
+            document.getElementById('diaryEditView').style.display = 'none';
+        }
+        
+        // 수정 저장
+        function saveEdit() {
+            const newTitle = document.getElementById('editTitle').value;
+            const newContent = document.getElementById('editContent').value;
+            const selectedMood = document.querySelector('input[name="mood"]:checked').value;
+            
+            // 상세 보기에 업데이트된 내용 반영
+            document.getElementById('detailTitle').textContent = newTitle;
+            document.getElementById('contentText').innerHTML = `<p>${newContent}</p>`;
+            
+            // 기분 업데이트
+            const moodText = getEmotionText(selectedMood);
+            document.getElementById('moodText').textContent = moodText;
+            
+            // 기분 이모지 업데이트
+            const emotionEmojis = {
+                'happy': '😊',
+                'sad': '😢',
+                'surprised': '😲',
+                'angry': '😠',
+                'other': '🤔'
+            };
+            document.querySelector('.mood-icon').textContent = emotionEmojis[selectedMood] || '😊';
+            
+            // 감정에 따른 색상 설정 업데이트
+            const moodContainer = document.querySelector('.diary-detail__mood');
+            moodContainer.className = 'diary-detail__mood';
+            moodContainer.classList.add(selectedMood);
+            
+            // 상세 보기로 돌아가기
+            cancelEdit();
+            
+            alert('일기가 수정되었습니다!');
+        }
+        
+        // 목록으로 돌아가기
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html> 
