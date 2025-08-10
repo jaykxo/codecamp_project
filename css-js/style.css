@@ -135,7 +135,7 @@ body {
 
 .diary-card:hover {
     transform: scale(1.1);
-    filter: blur(1px);
+    filter: blur(3px);
 }
 
 .card-image {
