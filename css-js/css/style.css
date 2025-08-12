@@ -670,3 +670,37 @@ body {
 .back-btn:hover {
     background: var(--Gray-Gray-200, #D4D3D3);
 }
+
+.floating-scroll-btn {
+    position: fixed;
+    bottom: 80px;
+    right: calc(50% - 1168px/2 + 40px);
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.floating-scroll-btn:hover {
+    transform: translateY(-2px);
+}
+
+.floating-scroll-btn:active {
+    transform: translateY(0);
+}
+
+.floating-scroll-btn img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    fill: rgba(255, 255, 255, 0.90);
+    stroke-width: 1px;
+    stroke: var(--Gray-Gray-50, #F2F2F2);
+}
