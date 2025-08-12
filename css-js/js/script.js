@@ -1,4 +1,29 @@
-import { getEmotionColor, getEmotionText, applyEmotionClass } from './utils.js';
+// 전역 함수들
+function getEmotionColor(emotion) {
+    const colors = {
+        'happy': '#EA5757',
+        'sad': '#28B4E1',
+        'surprised': '#D59029',
+        'angry': '#777777',
+        'other': '#A229ED'
+    };
+    return colors[emotion] || '#000000';
+}
+
+function getEmotionText(emotion) {
+    const texts = {
+        'happy': '행복해요',
+        'sad': '슬퍼요',
+        'surprised': '놀랐어요',
+        'angry': '화나요',
+        'other': '기타'
+    };
+    return texts[emotion] || '기타';
+}
+
+function applyEmotionClass(element, emotion) {
+    element.className = `diary-card ${emotion}`;
+}
 
 const diaryForm = document.getElementById('diaryForm');
 const navTabs = document.querySelectorAll('.nav-tab');
@@ -30,6 +55,61 @@ function loadDiariesFromStorage() {
  */
 function saveDiariesToStorage() {
     localStorage.setItem('diaries', JSON.stringify(diaries));
+}
+
+/**
+ * 일기 카드 삭제 함수
+ * @param {Event} e - 이벤트 객체
+ * @param {string} diaryId - 삭제할 일기의 ID
+ */
+function deleteDiaryCard(e, diaryId) {
+    // 이벤트 버블링 방지
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // 사용자 확인
+    if (!confirm('정말로 이 일기를 삭제하시겠습니까?')) {
+        return;
+    }
+    
+    // 전역 배열에서 해당 일기 제거
+    const index = diaries.findIndex(diary => diary.id === diaryId);
+    if (index !== -1) {
+        diaries.splice(index, 1);
+        saveDiariesToStorage();
+    }
+    
+    // DOM에서 해당 카드 제거
+    const cardElement = e.target.closest('.diary-card-wrapper');
+    if (cardElement) {
+        cardElement.remove();
+    }
+    
+    alert('일기가 삭제되었습니다!');
+}
+
+/**
+ * 기존 HTML 카드들을 위한 삭제 함수
+ * @param {Event} e - 이벤트 객체
+ * @param {string} diaryId - 삭제할 일기의 ID
+ */
+function deleteExistingCard(e, diaryId) {
+    // 이벤트 버블링 방지
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // 사용자 확인
+    if (!confirm('정말로 이 일기를 삭제하시겠습니까?')) {
+        return;
+    }
+    
+    // DOM에서 해당 카드 제거
+    const cardElement = e.target.closest('.diary-card-wrapper');
+    if (cardElement) {
+        cardElement.remove();
+    }
+    
+    alert('일기가 삭제되었습니다!');
 }
 
 function showDiaryList() {
@@ -73,14 +153,29 @@ function showDiaryDetail(diary) {
  * @returns {HTMLElement} 생성된 카드 링크 요소
  */
 function createDiaryCard(diary) {
+    // 고유 ID 생성 (기존 ID가 없으면 새로 생성)
+    if (!diary.id) {
+        diary.id = Date.now().toString();
+    }
+    
+    const cardWrapper = document.createElement('div');
+    cardWrapper.className = 'diary-card-wrapper';
+    
     const cardDiv = document.createElement('div');
     cardDiv.className = `diary-card ${diary.emotion}`;
     
     const linkElement = document.createElement('a');
-    linkElement.href = `/css-js/pages/diary-detail.html?id=${diary.id || Date.now()}&title=${encodeURIComponent(diary.title)}&emotion=${diary.emotion}&date=${encodeURIComponent(diary.date)}&content=${encodeURIComponent(diary.content || '')}`;
+    linkElement.href = `/css-js/pages/diary-detail.html?id=${diary.id}&title=${encodeURIComponent(diary.title)}&emotion=${diary.emotion}&date=${encodeURIComponent(diary.date)}&content=${encodeURIComponent(diary.content || '')}`;
     linkElement.style.textDecoration = 'none';
     linkElement.style.color = 'inherit';
     linkElement.style.display = 'block';
+    
+    // 삭제 버튼 추가
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'delete-btn';
+    deleteBtn.innerHTML = '<img src="./assets/icons/close icon.png" alt="삭제" width="24" height="24">';
+    deleteBtn.title = '삭제';
+    deleteBtn.addEventListener('click', (e) => deleteDiaryCard(e, diary.id));
     
     cardDiv.innerHTML = `
         <div class="card-image"></div>
@@ -94,7 +189,10 @@ function createDiaryCard(diary) {
     `;
     
     linkElement.appendChild(cardDiv);
-    return linkElement;
+    cardWrapper.appendChild(linkElement);
+    cardWrapper.appendChild(deleteBtn);
+    
+    return cardWrapper;
 }
 
 /**
