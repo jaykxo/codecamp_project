@@ -76,8 +76,15 @@ function deleteDiaryCard(e, diaryId) {
         diaries.splice(index, 1);
         saveDiariesToStorage();
         
-        // 전체 목록을 다시 렌더링
-        renderDiaryList(diaries);
+        // 현재 선택된 필터를 유지하면서 렌더링
+        const emotionFilter = document.getElementById('emotionFilter');
+        const selectedEmotion = emotionFilter.value;
+        if (selectedEmotion === 'all') {
+            renderDiaryList(diaries);
+        } else {
+            const filteredDiaries = diaries.filter(diary => diary.emotion === selectedEmotion);
+            renderDiaryList(filteredDiaries);
+        }
     }
     
     alert('일기가 삭제되었습니다!');
@@ -218,7 +225,18 @@ diaryForm.addEventListener('submit', function(e) {
     
     diaries.push(newDiary);
     saveDiariesToStorage();
-    renderDiaryList(diaries); // 새로 추가된 일기를 렌더링
+    
+    // 현재 선택된 필터를 유지하면서 렌더링
+    const emotionFilter = document.getElementById('emotionFilter');
+    const selectedEmotion = emotionFilter.value;
+    if (selectedEmotion === 'all' || selectedEmotion === emotion) {
+        if (selectedEmotion === 'all') {
+            renderDiaryList(diaries);
+        } else {
+            const filteredDiaries = diaries.filter(diary => diary.emotion === selectedEmotion);
+            renderDiaryList(filteredDiaries);
+        }
+    }
     
     this.reset();
     this.querySelector('input[value="happy"]').checked = true;
@@ -241,6 +259,18 @@ navTabs.forEach(tab => {
 
 document.addEventListener('DOMContentLoaded', function() {
     loadDiariesFromStorage();
+    
+    // 기분 필터링 기능 추가
+    const emotionFilter = document.getElementById('emotionFilter');
+    emotionFilter.addEventListener('change', function() {
+        const selectedEmotion = this.value;
+        if (selectedEmotion === 'all') {
+            renderDiaryList(diaries);
+        } else {
+            const filteredDiaries = diaries.filter(diary => diary.emotion === selectedEmotion);
+            renderDiaryList(filteredDiaries);
+        }
+    });
     
     // 초기 데이터가 없으면 기본 일기들을 설정
     if (diaries.length === 0) {
