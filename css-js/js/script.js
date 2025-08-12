@@ -39,9 +39,7 @@ function loadDiariesFromStorage() {
     if (storedDiaries) {
         try {
             diaries = JSON.parse(storedDiaries);
-            diaries.forEach(diary => {
-                addDiaryCard(diary);
-            });
+            renderDiaryList(diaries); // 데이터를 로드할 때 렌더링
         } catch (error) {
             console.error('localStorage 데이터 파싱 오류:', error);
             diaries = [];
@@ -77,12 +75,9 @@ function deleteDiaryCard(e, diaryId) {
     if (index !== -1) {
         diaries.splice(index, 1);
         saveDiariesToStorage();
-    }
-    
-    // DOM에서 해당 카드 제거
-    const cardElement = e.target.closest('.diary-card-wrapper');
-    if (cardElement) {
-        cardElement.remove();
+        
+        // 전체 목록을 다시 렌더링
+        renderDiaryList(diaries);
     }
     
     alert('일기가 삭제되었습니다!');
@@ -148,61 +143,63 @@ function showDiaryDetail(diary) {
 }
 
 /**
- * 일기 카드 DOM 요소를 생성
- * @param {Object} diary - 일기 데이터 객체
- * @returns {HTMLElement} 생성된 카드 링크 요소
+ * 일기 목록을 map을 사용하여 렌더링
+ * @param {Array} diaries - 렌더링할 일기 배열
  */
-function createDiaryCard(diary) {
-    // 고유 ID 생성 (기존 ID가 없으면 새로 생성)
-    if (!diary.id) {
-        diary.id = Date.now().toString();
-    }
-    
-    const cardWrapper = document.createElement('div');
-    cardWrapper.className = 'diary-card-wrapper';
-    
-    const cardDiv = document.createElement('div');
-    cardDiv.className = `diary-card ${diary.emotion}`;
-    
-    const linkElement = document.createElement('a');
-    linkElement.href = `/css-js/pages/diary-detail.html?id=${diary.id}&title=${encodeURIComponent(diary.title)}&emotion=${diary.emotion}&date=${encodeURIComponent(diary.date)}&content=${encodeURIComponent(diary.content || '')}`;
-    linkElement.style.textDecoration = 'none';
-    linkElement.style.color = 'inherit';
-    linkElement.style.display = 'block';
-    
-    // 삭제 버튼 추가
-    const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'delete-btn';
-    deleteBtn.innerHTML = '<img src="./assets/icons/close icon.png" alt="삭제" width="24" height="24">';
-    deleteBtn.title = '삭제';
-    deleteBtn.addEventListener('click', (e) => deleteDiaryCard(e, diary.id));
-    
-    cardDiv.innerHTML = `
-        <div class="card-image"></div>
-        <div class="card-contents">
-            <div class="card-division">
-                <div class="card-emotion"></div>
-                <div class="card-date">${diary.date}</div> 
-            </div>
-            <div class="card-title">${diary.title}</div>
-        </div>
-    `;
-    
-    linkElement.appendChild(cardDiv);
-    cardWrapper.appendChild(linkElement);
-    cardWrapper.appendChild(deleteBtn);
-    
-    return cardWrapper;
-}
-
-/**
- * 일기 목록에 새 카드를 추가
- * @param {Object} diary - 추가할 일기 객체
- */
-function addDiaryCard(diary) {
+function renderDiaryList(diaries) {
     const diaryCardsContainer = document.getElementById('diaryCards');
-    const newCard = createDiaryCard(diary);
-    diaryCardsContainer.appendChild(newCard);
+    
+    // 기존 카드들을 모두 제거
+    diaryCardsContainer.innerHTML = '';
+    
+    // map을 사용하여 일기 카드들을 생성하고 렌더링
+    const diaryCards = diaries.map(diary => {
+        // 고유 ID 생성 (기존 ID가 없으면 새로 생성)
+        if (!diary.id) {
+            diary.id = Date.now().toString();
+        }
+        
+        const cardWrapper = document.createElement('div');
+        cardWrapper.className = 'diary-card-wrapper';
+        
+        const cardDiv = document.createElement('div');
+        cardDiv.className = `diary-card ${diary.emotion}`;
+        
+        const linkElement = document.createElement('a');
+        linkElement.href = `/css-js/pages/diary-detail.html?id=${diary.id}&title=${encodeURIComponent(diary.title)}&emotion=${diary.emotion}&date=${encodeURIComponent(diary.date)}&content=${encodeURIComponent(diary.content || '')}`;
+        linkElement.style.textDecoration = 'none';
+        linkElement.style.color = 'inherit';
+        linkElement.style.display = 'block';
+        
+        // 삭제 버튼 추가
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.innerHTML = '<img src="./assets/icons/close icon.png" alt="삭제" width="24" height="24">';
+        deleteBtn.title = '삭제';
+        deleteBtn.addEventListener('click', (e) => deleteDiaryCard(e, diary.id));
+        
+        cardDiv.innerHTML = `
+            <div class="card-image"></div>
+            <div class="card-contents">
+                <div class="card-division">
+                    <div class="card-emotion"></div>
+                    <div class="card-date">${diary.date}</div> 
+                </div>
+                <div class="card-title">${diary.title}</div>
+            </div>
+        `;
+        
+        linkElement.appendChild(cardDiv);
+        cardWrapper.appendChild(linkElement);
+        cardWrapper.appendChild(deleteBtn);
+        
+        return cardWrapper;
+    });
+    
+    // 생성된 카드들을 컨테이너에 추가
+    diaryCards.forEach(card => {
+        diaryCardsContainer.appendChild(card);
+    });
 }
 
 diaryForm.addEventListener('submit', function(e) {
@@ -219,9 +216,9 @@ diaryForm.addEventListener('submit', function(e) {
         date: new Date().toLocaleDateString('ko-KR')
     };
     
-    addDiaryCard(newDiary);
     diaries.push(newDiary);
     saveDiariesToStorage();
+    renderDiaryList(diaries); // 새로 추가된 일기를 렌더링
     
     this.reset();
     this.querySelector('input[value="happy"]').checked = true;
@@ -245,24 +242,56 @@ navTabs.forEach(tab => {
 document.addEventListener('DOMContentLoaded', function() {
     loadDiariesFromStorage();
     
+    // 초기 데이터가 없으면 기본 일기들을 설정
     if (diaries.length === 0) {
-        document.querySelectorAll('.diary-card').forEach(card => {
-            const title = card.querySelector('.card-title').textContent;
-            const date = card.querySelector('.card-date').textContent;
-            const emotion = card.classList.contains('happy') ? 'happy' : 
-                            card.classList.contains('sad') ? 'sad' :
-                            card.classList.contains('surprised') ? 'surprised' :
-                            card.classList.contains('angry') ? 'angry' : 'other';
-            
-            const linkElement = document.createElement('a');
-            linkElement.href = `/css-js/pages/diary-detail.html?id=${Date.now()}&title=${encodeURIComponent(title)}&emotion=${emotion}&date=${encodeURIComponent(date)}&content=${encodeURIComponent('기존 일기 내용입니다. (내용은 표시되지 않습니다.)')}`;
-            linkElement.style.textDecoration = 'none';
-            linkElement.style.color = 'inherit';
-            linkElement.style.display = 'block';
-            
-            card.parentNode.insertBefore(linkElement, card);
-            linkElement.appendChild(card);
-        });
+        const initialDiaries = [
+            {
+                id: '1',
+                title: '타이틀 영역입니다. 한줄까지만 노출됩니다.',
+                emotion: 'sad',
+                date: '2024.03.12',
+                content: '기존 일기 내용입니다. (내용은 표시되지 않습니다.)'
+            },
+            {
+                id: '2',
+                title: '타이틀 영역입니다.',
+                emotion: 'surprised',
+                date: '2024.03.12',
+                content: '기존 일기 내용입니다. (내용은 표시되지 않습니다.)'
+            },
+            {
+                id: '3',
+                title: '타이틀 영역입니다. 한줄까지만 노출됩니다.',
+                emotion: 'angry',
+                date: '2024.03.12',
+                content: '기존 일기 내용입니다. (내용은 표시되지 않습니다.)'
+            },
+            {
+                id: '4',
+                title: '타이틀 영역입니다.',
+                emotion: 'happy',
+                date: '2024.03.12',
+                content: '기존 일기 내용입니다. (내용은 표시되지 않습니다.)'
+            },
+            {
+                id: '5',
+                title: '타이틀 영역입니다. 한줄까지만 노출됩니다.',
+                emotion: 'other',
+                date: '2024.03.12',
+                content: '기존 일기 내용입니다. (내용은 표시되지 않습니다.)'
+            },
+            {
+                id: '6',
+                title: '타이틀 영역입니다.',
+                emotion: 'happy',
+                date: '2024.03.12',
+                content: '기존 일기 내용입니다. (내용은 표시되지 않습니다.)'
+            }
+        ];
+        
+        diaries = initialDiaries;
+        saveDiariesToStorage();
+        renderDiaryList(diaries);
     }
     
     document.getElementById('backBtn').addEventListener('click', showDiaryList);
