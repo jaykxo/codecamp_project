@@ -169,21 +169,29 @@
     align-self: stretch;
 }
 
-.menu-button {
-    width: 105px;
-    height: 40px;
-    display: flex;
+.button {
+    /* width: 105px; */
     height: 40px;
     padding: 8px 12px;
+    display: flex;
     align-items: center;    
     gap: 8px;
+    /* sb_14_20 */
+    /* font-family: "Pretendard Variable"; */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px; /* 142.857% */
     border-radius: 8px;
     border: 1px solid var(--gray-B, #000);
     background: var(--gray-w, #FFF);
 }
 
-.edit-button {
-    width: 105px;
+.button p{
+    vertical-align: middle;
+}
+
+/* .edit-button {
     height: 40px;
     display: flex;
     height: 40px;
@@ -193,7 +201,7 @@
     border-radius: 8px;
     border: 1px solid var(--gray-B, #000);
     background: var(--gray-w, #FFF);
-}
+} */
 
 
 .D_enroll-border {
