@@ -1,10 +1,7 @@
 // import "./styles.module.css";
 import styles from "./styles.module.css";
 
-
-
-const Detail = () => {
-  const publishText =  
+const publishText =  
                 `살겠노라 살겠노라. 청산에 살겠노라.
                 머루랑 다래를 먹고 청산에 살겠노라.
                 얄리얄리 얄랑셩 얄라리 얄라
@@ -36,6 +33,10 @@ const Detail = () => {
                 가다 보니 배불룩한 술독에 독한 술을 빚는구나.
                 조롱박꽃 모양 누룩이 매워 (나를) 붙잡으니 내 어찌 하리이까.[1]
                 얄리얄리 얄라셩 얄라리 얄라`;
+
+
+const Detail = () => {
+  
 
   return (
     <div className={styles["D_layout"]}>
