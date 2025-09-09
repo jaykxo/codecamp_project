@@ -1,5 +1,6 @@
 'use client';
 
+import useMapBoardsDeletePage from './hooks';
 import styles from './styles.module.css';
 
 export default function MapBoardsDeletePage() {
