@@ -1,5 +1,5 @@
 // import "./styles.module.css";
-// 디테일 페이지 예시
+// 예시 디테일 페이지
 
 import styles from './styles.module.css';
 

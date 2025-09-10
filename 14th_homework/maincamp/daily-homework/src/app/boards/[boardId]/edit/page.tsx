@@ -1,7 +1,7 @@
 'use client';
 
-import BoardsWriteAdvanced from '@/commons/components/boards-write';
-import { FETCH_BOARD } from '@/commons/components/boards-write/queries';
+import BoardsWriteAdvanced from '@/components/boards-write';
+import { FETCH_BOARD } from '@/components/boards-write/queries';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'next/navigation';
 
