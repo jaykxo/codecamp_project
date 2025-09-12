@@ -1,9 +1,6 @@
 'use client';
 
-import { gql, useQuery } from '@apollo/client';
-import { useRouter, useParams } from 'next/navigation';
 import styles from './styles.module.css';
-import dayjs from 'dayjs';
 import useDetail from './hook';
 import { D_Variables } from './types';
 

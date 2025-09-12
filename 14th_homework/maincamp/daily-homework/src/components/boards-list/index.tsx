@@ -1,5 +1,6 @@
 'use client';
 
+import { trackSynchronousRequestDataAccessInDev } from 'next/dist/server/app-render/dynamic-rendering';
 import useMapBoardsDeletePage from './hooks';
 import styles from './styles.module.css';
 
