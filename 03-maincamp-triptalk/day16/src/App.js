@@ -75,7 +75,7 @@ const App = () => {
               placeholder="작성자 명을 입력해 주세요."
               onChange={onChangeName}
             />
-            <div>{nameError}</div>
+            <div className="error-msg">{nameError}</div>
           </div>
           <div className="form-group">
             <label className="form-label required">비밀번호</label>
@@ -85,7 +85,7 @@ const App = () => {
               placeholder="비밀번호를 입력해 주세요."
               onChange={onChangePassword}
             />
-            <div>{passwordError}</div>
+            <div className="error-msg">{passwordError}</div>
           </div>
         </div>
 
@@ -100,7 +100,7 @@ const App = () => {
             placeholder="제목을 입력해 주세요."
             onChange={onChangeTitle}
           />
-          <div>{titleError}</div>
+          <div className="error-msg">{titleError}</div>
         </div>
 
         <hr className="form-divider" />
@@ -113,7 +113,7 @@ const App = () => {
             placeholder="내용을 입력해 주세요."
             onChange={onChangeContent}
           ></textarea>
-          <div>{contentError}</div>
+          <div className="error-msg">{contentError}</div>
         </div>
 
         {/* 주소 */}
