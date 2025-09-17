@@ -1,8 +1,29 @@
-import React, { useState } from 'react';
-import './App.css';
-import addIcon from './assets/icons/add.svg';
+import React, { useState } from "react";
+import "./App.css";
+import addIcon from "./assets/icons/add.svg";
 
-const 게시글등록페이지 = () => {
+const App = () => {
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  const onChangeName = (event) => {
+    setName(event.target.value);
+  };
+
+  const onChangePassword = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const onChangeTitle = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const onChangeContent = (event) => {
+    setContent(event.target.value);
+  };
+
   return (
     <div className="container">
       <form className="post-form">
@@ -15,6 +36,7 @@ const 게시글등록페이지 = () => {
               type="text"
               className="form-input"
               placeholder="작성자 명을 입력해 주세요."
+              onChange={onChangeName}
             />
           </div>
           <div className="form-group">
@@ -23,6 +45,7 @@ const 게시글등록페이지 = () => {
               type="password"
               className="form-input"
               placeholder="비밀번호를 입력해 주세요."
+              onChange={onChangePassword}
             />
           </div>
         </div>
@@ -36,6 +59,7 @@ const 게시글등록페이지 = () => {
             type="text"
             className="form-input"
             placeholder="제목을 입력해 주세요."
+            onChange={onChangeTitle}
           />
         </div>
 
@@ -47,6 +71,7 @@ const 게시글등록페이지 = () => {
           <textarea
             className="form-textarea"
             placeholder="내용을 입력해 주세요."
+            onChange={onChangeContent}
           ></textarea>
         </div>
 
@@ -90,27 +115,15 @@ const 게시글등록페이지 = () => {
           <label className="form-label">사진 첨부</label>
           <div className="photo-upload-container">
             <div className="photo-upload-box">
-              <img
-                src={addIcon}
-                alt="추가"
-                className="upload-icon"
-              />
+              <img src={addIcon} alt="추가" className="upload-icon" />
               <div className="upload-text">클릭해서 사진 업로드</div>
             </div>
             <div className="photo-upload-box">
-              <img
-                src={addIcon}
-                alt="추가"
-                className="upload-icon"
-              />
+              <img src={addIcon} alt="추가" className="upload-icon" />
               <div className="upload-text">클릭해서 사진 업로드</div>
             </div>
             <div className="photo-upload-box">
-              <img
-                src={addIcon}
-                alt="추가"
-                className="upload-icon"
-              />
+              <img src={addIcon} alt="추가" className="upload-icon" />
               <div className="upload-text">클릭해서 사진 업로드</div>
             </div>
           </div>
@@ -130,4 +143,4 @@ const 게시글등록페이지 = () => {
   );
 };
 
-export default 게시글등록페이지;
+export default App;
