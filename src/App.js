@@ -8,6 +8,11 @@ const App = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
+  const [nameError, setNameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [titleError, setTitleError] = useState("");
+  const [contentError, setContentError] = useState("");
+
   const onChangeName = (event) => {
     setName(event.target.value);
   };
@@ -22,6 +27,38 @@ const App = () => {
 
   const onChangeContent = (event) => {
     setContent(event.target.value);
+  };
+
+  const onClickSignup = (event) => {
+    event.preventDefault();
+
+    // 1) 에러 초기화
+    setNameError("");
+    setPasswordError("");
+    setTitleError("");
+    setContentError("");
+
+    // 2) 필드별 검사
+    let valid = true;
+    if (!name.trim()) {
+      setNameError("필수입력 사항입니다.");
+      valid = false;
+    }
+    if (!password.trim()) {
+      setPasswordError("필수입력 사항입니다.");
+      valid = false;
+    }
+    if (!title.trim()) {
+      setTitleError("필수입력 사항입니다.");
+      valid = false;
+    }
+    if (!content.trim()) {
+      setContentError("필수입력 사항입니다.");
+      valid = false;
+    }
+
+    // 3) 전부 통과 시
+    if (valid) alert("게시글 등록이 가능한 상태입니다!");
   };
 
   return (
@@ -134,7 +171,7 @@ const App = () => {
           <button type="button" className="cancel-btn">
             취소
           </button>
-          <button type="submit" className="submit-btn">
+          <button type="submit" className="submit-btn" onClick={onClickSignup}>
             등록하기
           </button>
         </div>
