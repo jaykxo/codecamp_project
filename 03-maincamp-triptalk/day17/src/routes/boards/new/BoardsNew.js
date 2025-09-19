@@ -13,6 +13,8 @@ const BoardsNew = () => {
   const [titleError, setTitleError] = useState("");
   const [contentError, setContentError] = useState("");
 
+  const isSubmitDisabled = !name || !password || !title || !content;
+
   const onChangeName = (event) => {
     setName(event.target.value);
   };
@@ -175,7 +177,12 @@ const BoardsNew = () => {
           <button type="button" className="cancel-btn">
             취소
           </button>
-          <button type="submit" className="submit-btn" onClick={onClickSignup}>
+          <button
+            type="submit"
+            className={isSubmitDisabled ? "disabled" : "submit-btn"}
+            onClick={onClickSignup}
+            disabled={isSubmitDisabled}
+          >
             등록하기
           </button>
         </div>
