@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, MouseEvent } from "react";
 import "./BoardsNew.css";
 import addIcon from "../../../assets/icons/add.svg";
 
@@ -15,23 +15,23 @@ const BoardsNew = () => {
 
   const isSubmitDisabled = !name || !password || !title || !content;
 
-  const onChangeName = (event) => {
+  const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
-  const onChangePassword = (event) => {
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
 
-  const onChangeTitle = (event) => {
+  const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
 
-  const onChangeContent = (event) => {
+  const onChangeContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
   };
 
-  const onClickSignup = (event) => {
+  const onClickSignup = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     // 1) 에러 초기화
