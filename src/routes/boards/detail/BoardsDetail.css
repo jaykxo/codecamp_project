@@ -1,25 +1,38 @@
 * {
   margin: 0;
   padding: 0;
+}
+
+.detail-frame {
+  display: flex;
+  width: 100%;
+  padding: 40px 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.detail-body {
+  display: flex;
+  width: 100%;
+  padding: 0 320px;
   box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  align-self: stretch;
 }
 
 .detail-container {
-  max-width: 1320px;
+  display: flex;
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  box-sizing: border-box;
-}
-.detail-header {
-  display: flex;
-  width: 1280px;
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
 }
+
 .detail-title {
   align-self: stretch;
   color: #000;
@@ -29,6 +42,7 @@
   font-weight: 700;
   line-height: 36px;
 }
+
 .detail-meta {
   display: flex;
   align-items: center;
@@ -40,7 +54,7 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px; /* 142.857% */
+  line-height: 20px;
 }
 
 .detail-meta-profile {
@@ -48,6 +62,7 @@
   align-items: center;
   gap: 4px;
 }
+
 .profile-icon {
   width: 24px;
   height: 24px;
@@ -60,118 +75,115 @@
   border: none;
   margin: 0;
 }
+
 .header-icons {
   display: flex;
   align-items: center;
   gap: 8px;
+  justify-content: flex-end;
+  align-self: stretch;
+  width: 100%;
 }
+
 .header-icons img {
   width: 24px;
   height: 24px;
 }
-.detail-body {
-  display: flex;
-  flex-direction: column; /* 세로 배치 */
-  gap: 24px;
-  /* margin: 24px 0 40px; */
-}
+
 .detail-image {
   width: 400px;
   height: 531px;
 }
+
 .detail-image-caption {
   color: #999;
   font-size: 12px;
   margin-top: 6px;
 }
+
 .detail-content p {
-  margin: 0 0 14px;
-  line-height: 1.8;
+  margin: 0 0 24px;
+  color: #000;
+  font-family: "Pretendard Variable";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
 }
 
-.detail-video-preview {
-  margin: 40px 0;
-}
-.video-frame {
-  position: relative;
-  width: 100%;
-  max-width: 100%; /* 컨테이너 폭에 맞추기 */
-}
-.video-thumb {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 8px;
-  background: #eee;
+.detail-content p:last-child {
+  margin-bottom: 0;
 }
 
-/* 재생 아이콘 오버레이 (클릭 기능 없음) */
-.play-overlay {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-}
-.play-overlay::before {
-  content: "";
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.45);
-  display: grid;
-  place-items: center;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-}
-.play-overlay::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-left: 18px solid #fff;
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
-  transform: translateX(6px);
-}
+/*  video-frame (비디오 썸네일) - JS에서는 img 태그로 사용 */
 
-.video-caption {
-  color: #888;
-  font-size: 13px;
-  margin-top: 10px;
-}
-
-.detail-actions {
-  margin-top: 32px;
+.content-reaction {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-self: stretch;
+  width: 100%;
+  gap: 24px;
+}
+
+.reaction {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  border-top: 1px solid #eee;
-  padding-top: 20px;
-}
-.btn {
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-weight: 600;
-  border: 1px solid transparent;
-}
-.btn.outline {
-  border-color: #ddd;
-  background: #fff;
-}
-.btn.ghost {
-  background: #f5f5f5;
-}
-.btn.danger {
-  background: #ff4d4f;
-  color: #fff;
-}
-.action-right {
-  display: flex;
-  gap: 8px;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
 }
 
-@media (max-width: 900px) {
-  .detail-body {
-    grid-template-columns: 1fr; /* 모바일에서는 단일 컬럼 */
-    gap: 16px;
-  }
+.reaction img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.reaction .count {
+  color: var(--gray-700, #5f5f5f);
+  font-family: "Pretendard Variable";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.reaction.good .count {
+  color: #f66a6a;
+}
+
+/* 10. detail-actions */
+.detail-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  align-self: stretch;
+}
+
+.btn {
+  display: flex;
+  height: 40px;
+  padding: 8px 12px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-B, #000);
+  background: var(--gray-w, #fff);
+  color: var(--gray-B, #000);
+  text-align: center;
+  font-family: "Pretendard Variable";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.btn img {
+  width: 24px;
+  height: 24px;
+  display: block;
 }
