@@ -160,15 +160,15 @@ const BoardsNew = () => {
           <label className={styles.formLabel}>사진 첨부</label>
           <div className={styles.photoUploadContainer}>
             <div className={styles.photoUploadBox}>
-              <img src={addIcon} alt="추가" className={styles.uploadIcon} />
+              <img src={addIcon.src} alt="추가" className={styles.uploadIcon} />
               <div className={styles.uploadText}>클릭해서 사진 업로드</div>
             </div>
             <div className={styles.photoUploadBox}>
-              <img src={addIcon} alt="추가" className={styles.uploadIcon} />
+              <img src={addIcon.src} alt="추가" className={styles.uploadIcon} />
               <div className={styles.uploadText}>클릭해서 사진 업로드</div>
             </div>
             <div className={styles.photoUploadBox}>
-              <img src={addIcon} alt="추가" className={styles.uploadIcon} />
+              <img src={addIcon.src} alt="추가" className={styles.uploadIcon} />
               <div className={styles.uploadText}>클릭해서 사진 업로드</div>
             </div>
           </div>
