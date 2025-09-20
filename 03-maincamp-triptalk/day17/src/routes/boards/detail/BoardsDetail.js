@@ -85,7 +85,7 @@ const BoardsDetail = () => {
             </p>
           </article>
 
-          <img src={thumbnailImage} alt="비디오 썸네일" />
+          <img className="video-frame" src={thumbnailImage} alt="비디오 썸네일" />
 
           <div className="content-reaction">
             <button type="button" className="reaction bad">
