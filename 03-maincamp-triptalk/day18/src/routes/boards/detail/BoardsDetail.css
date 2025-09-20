@@ -115,11 +115,7 @@
   margin-bottom: 0;
 }
 
-.video-frame {
-  max-width: 100%;   
-  height: auto;      
-  display: block;   
-}
+/*  video-frame (비디오 썸네일) - JS에서는 img 태그로 사용 */
 
 .content-reaction {
   display: flex;
