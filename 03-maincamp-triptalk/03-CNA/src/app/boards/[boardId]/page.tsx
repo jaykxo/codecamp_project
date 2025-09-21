@@ -1,3 +1,7 @@
+"use client"
+
+import { useQuery,gql } from "@apollo/client";
+import { useParams } from "next/navigation";
 import React from "react";
 import styles from "./styles.module.css";
 import detailImage from "@/assets/images/detail_example.png";
@@ -10,19 +14,37 @@ import badIcon from "@/assets/icons/bad.svg";
 import menuIcon from "@/assets/icons/menu.png";
 import editIcon from "@/assets/icons/edit.png";
 
-const BoardsDetail = () => {
+const FETCH_BOARD = gql`
+  query fetchBoard($boardId: ID!) {
+    fetchBoard(boardId: $boardId) {
+      writer
+      title
+      contents
+    }
+  }
+`;
+
+export default function BoardsDetail() {
+  const { boardId } = useParams<{ boardId: string }>();
+  const { data, loading, error } = useQuery(FETCH_BOARD, {
+    variables: { boardId },
+    skip: !boardId,
+  });
+
+  if (loading) return <div>로딩 중...</div>;
+  if (error) return <div>불러오기에 실패했습니다.</div>;
+
+  const board = data?.fetchBoard;
+
   return (
     <div className={styles.detailFrame}>
       <div className={styles.detailBody}>
         <div className={styles.detailContainer}>
-          <div className={styles.detailTitle}>
-            살어리 살어리랏다 쳥산(靑山)애 살어리랏다멀위랑 ᄃᆞ래랑 먹고
-            쳥산(靑山)애 살어리랏다얄리얄리 얄랑셩 얄라리 얄라
-          </div>
+          <div className={styles.detailTitle}>{board?.title}</div>
           <div className={styles.detailMeta}>
             <div className={styles.detailMetaProfile}>
               <img src={unknownIcon.src} className={styles.profileIcon} />
-              <span className={styles.metaAuthor}>홍길동</span>
+              <span className={styles.metaAuthor}>{board?.writer}</span>
             </div>
             <span className={styles.metaDate}>2024.11.11</span>
           </div>
@@ -40,50 +62,7 @@ const BoardsDetail = () => {
             />
           </figure>
 
-          <article className={styles.detailContent}>
-            <p>
-              살겠노라 살겠노라. 청산에 살겠노라. <br />
-              머루랑 다래를 먹고 청산에 살겠노라. <br />
-              얄리얄리 얄랑셩 얄라리 얄라
-            </p>
-            <p>
-              우는구나 우는구나 새야. 자고 일어나 우는구나 새야. <br />
-              너보다 시름 많은 나도 자고 일어나 우노라. <br />
-              얄리얄리 얄라셩 얄라리 얄라
-            </p>
-            <p>
-              갈던 밭(사래) 갈던 밭 보았느냐. 물 아래(근처) 갈던 밭 보았느냐
-              <br />
-              이끼 묻은 쟁기를 가지고 물 아래 갈던 밭 보았느냐. <br />
-              얄리얄리 얄라셩 얄라리 얄라
-            </p>
-            <p>
-              이럭저럭 하여 낮일랑 지내 왔건만 <br />
-              올 이도 갈 이도 없는 밤일랑 또 어찌할 것인가. <br />
-              얄리얄리 얄라셩 얄라리 얄라
-            </p>
-            <p>
-              어디다 던지는 돌인가 누구를 맞히려던 돌인가. <br />
-              미워할 이도 사랑할 이도 없이 맞아서 우노라. <br />
-              얄리얄리 얄라셩 얄라리 얄라
-            </p>
-            <p>
-              살겠노라 살겠노라. 바다에 살겠노라. <br />
-              나문재, 굴, 조개를 먹고 바다에 살겠노라. <br />
-              얄리얄리 얄라셩 얄라리 얄라
-            </p>
-            <p>
-              가다가 가다가 듣노라. 에정지(미상) 가다가 듣노라. <br />
-              사슴(탈 쓴 광대)이 솟대에 올라서 해금을 켜는 것을 듣노라. <br />
-              얄리얄리 얄라셩 얄라리 얄라
-            </p>
-            <p>
-              가다 보니 배불룩한 술독에 독한 술을 빚는구나. <br />
-              조롱박꽃 모양 누룩이 매워 (나를) 붙잡으니 내 어찌 하리이까.[1]
-              <br />
-              얄리얄리 얄라셩 얄라리 얄라
-            </p>
-          </article>
+          <article className={styles.detailContent}>{board?.contents}</article>
 
           <img src={thumbnailImage.src} alt="비디오 썸네일" />
 
@@ -112,6 +91,4 @@ const BoardsDetail = () => {
       </div>
     </div>
   );
-};
-
-export default BoardsDetail;
+}
