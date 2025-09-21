@@ -1,64 +1,121 @@
 .container {
-  padding: 48px 16px;
   display: flex;
-  justify-content: center;
+  padding: 0 clamp(16px, 6vw, 320px);
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
 }
 
 .card {
+  margin-top: 40px;
+  display: flex;
   width: 100%;
-  max-width: 960px;
+  max-width: 1280px;
+  min-width: 960px;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 48px;
+  margin-left: auto;
+  margin-right: auto;
   background: #ffffff;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.08);
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   overflow: hidden;
 }
 
 .header {
-  display: grid;
-  grid-template-columns: 86px 1fr 120px 120px;
+  display: flex;
+  padding: 16px 24px;
   align-items: center;
-  padding: 14px 20px;
-  background: #fafafa;
-  color: #6b7280;
-  font-weight: 600;
-  font-size: 14px;
-  border-bottom: 1px solid #eef2f7;
+  gap: 8px;
+  align-self: stretch;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+/* Header columns */
+.header .noCol,
+.header .titleCol,
+.header .authorCol,
+.header .dateCol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #1c1c1c;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.noCol {
+  width: 64px;
+  text-align: center;
+}
+
+.titleCol {
+  flex: 1 0 0;
+  justify-content: left;
+}
+
+.authorCol,
+.dateCol {
+  width: clamp(80px, 12vw, 100px);
+  justify-content: center;
 }
 
 .list {
   margin: 0;
   padding: 0;
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
 }
 
 .row {
-  display: grid;
-  grid-template-columns: 86px 1fr 120px 120px;
+  height: 48px;
+  display: flex;
+  padding: 12px 24px;
   align-items: center;
-  padding: 14px 20px;
-  border-bottom: 1px solid #f1f5f9;
+  gap: 8px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--gray-50, #f2f2f2);
 }
 
-.row:hover {
-  background: #f9fafb;
-}
-
-.noCol {
+/* Row columns */
+.row .noCol,
+.row .authorCol,
+.row .dateCol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
   text-align: center;
-  color: #9ca3af;
+  text-overflow: ellipsis;
 }
 
-.titleCol {
-  color: #374151;
+.row .noCol {
+  width: 64px;
+  color: var(--Gray-50, var(--gray-500, #919191));
+  font-size: 14px;
 }
 
 .titleLink {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  gap: 10px;
+  justify-content: left;
   text-decoration: none;
-  color: #111827;
-}
-
-.titleLink:hover .titleText {
-  text-decoration: underline;
+  color: var(--Gray-90, #1c1c1c);
+  font-size: 14px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .titleText {
@@ -68,36 +125,74 @@
   text-overflow: ellipsis;
 }
 
-.authorCol,
-.dateCol {
-  display: flex;
-  justify-content: center;
-}
-
+/* Author and date appearance aligned to reference */
 .chip {
-  background: #f3f4f6;
-  color: #374151;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 12px;
+  background: transparent;
+  color: var(--Gray-80, var(--gray-800, #333));
+  padding: 0;
+  border-radius: 0;
+  font-size: 14px;
 }
 
 .badge {
-  background: #f8fafc;
-  color: #64748b;
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-size: 12px;
-  border: 1px solid #e5e7eb;
+  background: transparent;
+  color: var(--Gray-50, var(--gray-500, #919191));
+  padding: 0;
+  border-radius: 0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 20px;
+  border: none;
 }
 
-/* Responsive: hide 번호 column on small screens */
+.hidden {
+  visibility: hidden;
+}
+
+.showButton {
+  visibility: visible;
+}
+
+.row:hover {
+  background: #f9fafb;
+}
+
+.titleLink:hover .titleText {
+  text-decoration: underline;
+}
+
+.titleLink:focus-visible {
+  outline: 2px solid #c7d2fe;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Optional: small screens can stack padding a bit tighter */
 @media (max-width: 640px) {
-  .header,
-  .row {
-    grid-template-columns: 1fr 100px 100px;
+  .container {
+    padding: 0 16px;
   }
-  .noCol {
+  .card {
+    padding: 16px 16px;
+  }
+  .header {
+    padding: 12px 12px;
+  }
+  .row {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .header .noCol,
+  .row .noCol {
     display: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .card {
+    min-width: 0;
   }
 }
