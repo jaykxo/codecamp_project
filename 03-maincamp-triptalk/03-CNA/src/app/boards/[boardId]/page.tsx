@@ -1,7 +1,7 @@
 "use client"
 
 import { useQuery,gql } from "@apollo/client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React from "react";
 import styles from "./styles.module.css";
 import detailImage from "@/assets/images/detail_example.png";
@@ -28,6 +28,7 @@ const FETCH_BOARD = gql`
 
 export default function BoardsDetail() {
   const { boardId } = useParams<{ boardId: string }>();
+  const router = useRouter();
   const { data, loading, error } = useQuery(FETCH_BOARD, {
     variables: { boardId },
     skip: !boardId,
@@ -80,7 +81,7 @@ export default function BoardsDetail() {
           </div>
 
           <div className={styles.detailActions}>
-            <button type="button" className={styles.btn}>
+            <button type="button" className={styles.btn} onClick={() => router.push("/boards")}>
               <img src={menuIcon.src} alt="목록 아이콘" />
               목록으로
             </button>
