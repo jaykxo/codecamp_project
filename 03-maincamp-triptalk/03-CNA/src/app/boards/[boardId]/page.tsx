@@ -54,17 +54,17 @@ export default function BoardsDetail() {
             <img src={locationIcon.src}></img>
           </div>
 
-          <figure className={styles.detailImageBlock}>
+          {/* <figure className={styles.detailImageBlock}>
             <img
               className={styles.detailImage}
               src={detailImage.src}
               alt="상세화면 임시 이미지"
             />
-          </figure>
+          </figure> */}
 
           <article className={styles.detailContent}>{board?.contents}</article>
 
-          <img src={thumbnailImage.src} alt="비디오 썸네일" />
+          {/* <img src={thumbnailImage.src} alt="비디오 썸네일" /> */}
 
           <div className={styles.contentReaction}>
             <button type="button" className={`${styles.reaction} ${styles.bad}`}>
