@@ -3,6 +3,7 @@
 import { useQuery, gql } from "@apollo/client";
 import Link from "next/link";
 import styles from "./styles.module.css";
+import { formatDate } from "@/utils/formatDate";
 
 const FETCH_BOARDS = gql`
   query fetchBoards($page: Int) {
@@ -38,7 +39,9 @@ export default function BoardListPage() {
                 <span className={styles.chip}>{board.writer}</span>{" "}
               </div>
               <div className={styles.dateCol}>
-                <span className={styles.badge}>{board.createdAt}</span>{" "}
+                <span className={styles.badge}>
+                  {formatDate(board.createdAt)}
+                </span>
               </div>
             </li>
           ))}

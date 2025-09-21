@@ -13,6 +13,7 @@ import goodIcon from "@/assets/icons/good.png";
 import badIcon from "@/assets/icons/bad.svg";
 import menuIcon from "@/assets/icons/menu.png";
 import editIcon from "@/assets/icons/edit.png";
+import { formatDate } from "@/utils/formatDate";
 
 const FETCH_BOARD = gql`
   query fetchBoard($boardId: ID!) {
@@ -20,6 +21,7 @@ const FETCH_BOARD = gql`
       writer
       title
       contents
+      createdAt
     }
   }
 `;
@@ -46,7 +48,7 @@ export default function BoardsDetail() {
               <img src={unknownIcon.src} className={styles.profileIcon} />
               <span className={styles.metaAuthor}>{board?.writer}</span>
             </div>
-            <span className={styles.metaDate}>2024.11.11</span>
+            <span className={styles.badge}>{formatDate(board.createdAt)}</span>
           </div>
           <hr className={styles.formDivider} />
           <div className={styles.headerIcons}>
