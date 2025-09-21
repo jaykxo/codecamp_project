@@ -26,9 +26,8 @@ const BoardsNew = () => {
   const [titleError, setTitleError] = useState("");
   const [contentError, setContentError] = useState("");
 
-  const isSubmitDisabled = !name || !password || !title || !content;
-
-  const [createBoard] = useMutation(CREATE_BOARD);
+  const [createBoard, { loading }] = useMutation(CREATE_BOARD);
+  const isSubmitDisabled = !name || !password || !title || !content || loading;
 
   const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -74,8 +73,9 @@ const BoardsNew = () => {
       valid = false;
     }
 
-    // 3) 전부 통과 시
-    if (valid) {
+    if (!valid) return;
+
+    try {
       const { data } = await createBoard({
         variables: {
           createBoardInput: {
@@ -96,6 +96,8 @@ const BoardsNew = () => {
       setPassword("");
       setTitle("");
       setContent("");
+    } catch (e: any) {
+      alert(e?.message ?? "등록 중 오류가 발생했습니다.");
     }
   };
 
