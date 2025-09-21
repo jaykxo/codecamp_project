@@ -146,6 +146,30 @@
   border: none;
 }
 
+.actionsCol {
+  width: 56px; /* 고정 폭: 레이아웃 흔들림 방지 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.deleteIcon {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0;               /* 기본은 숨김 */
+  transition: opacity .15s; /* 호버 시만 보이게 */
+}
+
+.row:hover .deleteIcon {
+  opacity: 1;
+}
+
+.deleteIcon img {
+  width: 24px;
+  height: 24px;
+}
 .hidden {
   visibility: hidden;
 }

@@ -50,6 +50,7 @@ export default function BoardListPage() {
           <div className={styles.titleCol}>제목</div>
           <div className={styles.authorCol}>작성자</div>
           <div className={styles.dateCol}>날짜</div>
+          <div className={styles.actionsCol}></div>
         </div>
 
         <ul className={styles.list} role="list">
@@ -60,19 +61,23 @@ export default function BoardListPage() {
                 <span className={styles.titleText}>{board.title}</span>
               </Link>
               <div className={styles.authorCol}>
-                <span className={styles.chip}>{board.writer}</span>{" "}
+                <span className={styles.chip}>{board.writer}</span>
               </div>
               <div className={styles.dateCol}>
                 <span className={styles.badge}>
                   {formatDate(board.createdAt)}
                 </span>
               </div>
-              <button
-                className={styles.deleteIcon}
-                onClick={(e) => onClickDelete(e, board._id)}
-              >
-                <img src={deleteIcon.src} alt="삭제" />
-              </button>{" "}
+              <div className={styles.actionsCol}>
+                <button
+                  className={styles.deleteIcon}
+                  onClick={(e) => onClickDelete(e, board._id)}
+                  aria-label="삭제"
+                  title="삭제"
+                >
+                  <img src={deleteIcon.src} alt="삭제" />
+                </button>
+              </div>
             </li>
           ))}
         </ul>
