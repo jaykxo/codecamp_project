@@ -1,8 +1,19 @@
-"use client"
+"use client";
 
 import React, { useState, ChangeEvent, MouseEvent } from "react";
 import styles from "./styles.module.css";
 import addIcon from "@/assets/icons/add.svg";
+import { useMutation, gql } from "@apollo/client";
+
+const CREATE_BOARD = gql`
+  mutation createBoard($createBoardInput: CreateBoardInput!) {
+    createBoard(createBoardInput: $createBoardInput) {
+      _id
+      number
+      message
+    }
+  }
+`;
 
 const BoardsNew = () => {
   const [name, setName] = useState("");
@@ -16,6 +27,8 @@ const BoardsNew = () => {
   const [contentError, setContentError] = useState("");
 
   const isSubmitDisabled = !name || !password || !title || !content;
+
+  const [createBoard] = useMutation(CREATE_BOARD);
 
   const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -33,7 +46,7 @@ const BoardsNew = () => {
     setContent(event.target.value);
   };
 
-  const onClickSignup = (event: MouseEvent<HTMLButtonElement>) => {
+  const onClickSignup = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     // 1) 에러 초기화
@@ -62,7 +75,28 @@ const BoardsNew = () => {
     }
 
     // 3) 전부 통과 시
-    if (valid) alert("게시글 등록이 가능한 상태입니다!");
+    if (valid) {
+      const { data } = await createBoard({
+        variables: {
+          createBoardInput: {
+            writer: name,
+            password,
+            title,
+            contents: content,
+          },
+        },
+      });
+
+      const created = data?.createBoard;
+      const boardId = created?.number ?? created?._id;
+      alert(`등록 완료! 게시글 번호/ID: ${boardId ?? "확인 필요"}`);
+
+      // 입력값 초기화
+      setName("");
+      setPassword("");
+      setTitle("");
+      setContent("");
+    }
   };
 
   return (
@@ -72,7 +106,9 @@ const BoardsNew = () => {
         {/* 작성자와 비밀번호 */}
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
-            <label className={`${styles.formLabel} ${styles.required}`}>작성자</label>
+            <label className={`${styles.formLabel} ${styles.required}`}>
+              작성자
+            </label>
             <input
               type="text"
               className={styles.formInput}
@@ -82,7 +118,9 @@ const BoardsNew = () => {
             <div className={styles.errorMsg}>{nameError}</div>
           </div>
           <div className={styles.formGroup}>
-            <label className={`${styles.formLabel} ${styles.required}`}>비밀번호</label>
+            <label className={`${styles.formLabel} ${styles.required}`}>
+              비밀번호
+            </label>
             <input
               type="password"
               className={styles.formInput}
@@ -97,7 +135,9 @@ const BoardsNew = () => {
 
         {/* 제목 */}
         <div className={styles.formGroup}>
-          <label className={`${styles.formLabel} ${styles.required}`}>제목</label>
+          <label className={`${styles.formLabel} ${styles.required}`}>
+            제목
+          </label>
           <input
             type="text"
             className={styles.formInput}
@@ -138,7 +178,11 @@ const BoardsNew = () => {
             className={styles.formInput}
             placeholder="주소를 입력해 주세요."
           />
-          <input type="text" className={styles.formInput} placeholder="상세주소" />
+          <input
+            type="text"
+            className={styles.formInput}
+            placeholder="상세주소"
+          />
         </div>
 
         <hr className={styles.formDivider} />
