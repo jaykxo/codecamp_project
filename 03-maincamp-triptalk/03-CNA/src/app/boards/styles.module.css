@@ -1,0 +1,103 @@
+.container {
+  padding: 48px 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 960px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 86px 1fr 120px 120px;
+  align-items: center;
+  padding: 14px 20px;
+  background: #fafafa;
+  color: #6b7280;
+  font-weight: 600;
+  font-size: 14px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 86px 1fr 120px 120px;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.row:hover {
+  background: #f9fafb;
+}
+
+.noCol {
+  text-align: center;
+  color: #9ca3af;
+}
+
+.titleCol {
+  color: #374151;
+}
+
+.titleLink {
+  text-decoration: none;
+  color: #111827;
+}
+
+.titleLink:hover .titleText {
+  text-decoration: underline;
+}
+
+.titleText {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.authorCol,
+.dateCol {
+  display: flex;
+  justify-content: center;
+}
+
+.chip {
+  background: #f3f4f6;
+  color: #374151;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.badge {
+  background: #f8fafc;
+  color: #64748b;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Responsive: hide 번호 column on small screens */
+@media (max-width: 640px) {
+  .header,
+  .row {
+    grid-template-columns: 1fr 100px 100px;
+  }
+  .noCol {
+    display: none;
+  }
+}
