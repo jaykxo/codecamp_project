@@ -95,7 +95,7 @@ const BoardsNew = () => {
       setTitle("");
       setContent("");
     } catch (e: any) {
-      alert(e?.message ?? "등록 중 오류가 발생했습니다.");
+      alert(e?.message ?? "에러가 발생하였습니다. 다시 시도해 주세요.");
     }
   };
 
