@@ -1,7 +1,7 @@
 "use client";
 
-import  { useState, ChangeEvent, MouseEvent } from "react";
-import styles from './styles.module.css'
+import { useState, ChangeEvent, MouseEvent } from "react";
+import styles from "./styles.module.css";
 import addIcon from "@/assets/icons/add.svg";
 import { useMutation, gql } from "@apollo/client";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ const CREATE_BOARD = gql`
   }
 `;
 
-export default function BoardsComponentWrite() {
+export default function BoardsComponentWrite(props) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
@@ -101,7 +101,9 @@ export default function BoardsComponentWrite() {
   return (
     <div className={styles.container}>
       <form className={styles.postForm}>
-        <h1 className={styles.pageTitle}>게시물 등록</h1>
+        <h1 className={styles.pageTitle}>
+          게시물 {props.isEdit ? "수정" : "등록"}
+        </h1>
         {/* 작성자와 비밀번호 */}
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
@@ -228,12 +230,10 @@ export default function BoardsComponentWrite() {
             onClick={onClickSignup}
             disabled={isSubmitDisabled}
           >
-            등록하기
+            {props.isEdit ? "수정" : "등록"}하기
           </button>
         </div>
       </form>
     </div>
   );
-};
-
-
+}

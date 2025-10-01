@@ -3,5 +3,5 @@
 import BoardsComponentWrite from "@/components/boards-write"
 
 export default function BoardsEditPage() {
-  return <BoardsComponentWrite />
+  return <BoardsComponentWrite isEdit={true}/>
 }
