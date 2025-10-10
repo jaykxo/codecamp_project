@@ -4,8 +4,6 @@ import { useQuery,gql } from "@apollo/client";
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
 import styles from "./styles.module.css";
-import detailImage from "@/assets/images/detail_example.png";
-import thumbnailImage from "@/assets/images/thumbnail_example.png";
 import unknownIcon from "@/assets/icons/unknown.png";
 import locationIcon from "@/assets/icons/location.png";
 import linkIcon from "@/assets/icons/link.png";
