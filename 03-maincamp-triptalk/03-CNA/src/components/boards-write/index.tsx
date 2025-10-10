@@ -14,6 +14,22 @@ const CREATE_BOARD = gql`
   }
 `;
 
+const UPDATE_BOARD = gql`
+  mutation updateBoard(
+    $boardId: ID!
+    $password: String!
+    $updateBoardInput: UpdateBoardInput!
+  ) {
+    updateBoard(
+      boardId: $boardId
+      password: $password
+      updateBoardInput: $updateBoardInput
+    ) {
+      _id
+    }
+  }
+`;
+
 export default function BoardsComponentWrite(props) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +42,9 @@ export default function BoardsComponentWrite(props) {
   const [contentError, setContentError] = useState("");
 
   const [createBoard, { loading }] = useMutation(CREATE_BOARD);
-  const isSubmitDisabled = !name || !password || !title || !content || loading;
+  const [updateBoard] = useMutation(UPDATE_BOARD);
+  const isSubmitDisabled =
+    !props.isEdit && (!name || !password || !title || !content || loading);
 
   const router = useRouter();
 
@@ -47,54 +65,66 @@ export default function BoardsComponentWrite(props) {
   };
 
   const onClickSignup = async (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+    // 신규 게시글 작성시
+    if (!props.isEdit) {
+      event.preventDefault();
 
-    // 1) 에러 초기화
-    setNameError("");
-    setPasswordError("");
-    setTitleError("");
-    setContentError("");
+      setNameError("");
+      setPasswordError("");
+      setTitleError("");
+      setContentError("");
 
-    // 2) 필드별 검사
-    let valid = true;
-    if (!name.trim()) {
-      setNameError("필수입력 사항입니다.");
-      valid = false;
-    }
-    if (!password.trim()) {
-      setPasswordError("필수입력 사항입니다.");
-      valid = false;
-    }
-    if (!title.trim()) {
-      setTitleError("필수입력 사항입니다.");
-      valid = false;
-    }
-    if (!content.trim()) {
-      setContentError("필수입력 사항입니다.");
-      valid = false;
-    }
-
-    if (!valid) return;
-
-    try {
-      const { data } = await createBoard({
-        variables: {
-          createBoardInput: {
-            writer: name,
-            password,
-            title,
-            contents: content,
-          },
-        },
-      });
-
-      const boardId = data?.createBoard?._id;
-      if (boardId) {
-        alert("게시글 등록 완료! 등록한 게시글로 이동합니다.");
-        router.push(`/boards/${boardId}`);
+      let valid = true;
+      if (!name.trim()) {
+        setNameError("필수입력 사항입니다.");
+        valid = false;
       }
-    } catch (e: any) {
-      alert(e?.message ?? "에러가 발생하였습니다. 다시 시도해 주세요.");
+      if (!password.trim()) {
+        setPasswordError("필수입력 사항입니다.");
+        valid = false;
+      }
+      if (!title.trim()) {
+        setTitleError("필수입력 사항입니다.");
+        valid = false;
+      }
+      if (!content.trim()) {
+        setContentError("필수입력 사항입니다.");
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      try {
+        const { data } = await createBoard({
+          variables: {
+            createBoardInput: {
+              writer: name,
+              password,
+              title,
+              contents: content,
+            },
+          },
+        });
+
+        const boardId = data?.createBoard?._id;
+        if (boardId) {
+          alert("게시글 등록 완료! 등록한 게시글로 이동합니다.");
+          router.push(`/boards/${boardId}`);
+        }
+      } catch (e: any) {
+        alert(e?.message ?? "에러가 발생하였습니다. 다시 시도해 주세요.");
+      }
+    }
+
+    // 게시글 수정시
+    else if (props.isEdit) {
+      const 입력받은비밀번호 = prompt(
+        "글을 작성할 때 입력했던 비밀번호를 입력해주세요."
+      );
+      if (!입력받은비밀번호) return;
+
+      const original = props.data?.fetchBoard;
+
     }
   };
 
@@ -132,9 +162,7 @@ export default function BoardsComponentWrite(props) {
               placeholder="비밀번호를 입력해 주세요."
               onChange={onChangePassword}
               disabled={props.isEdit}
-              defaultValue={
-                props.isEdit ? "*********" : password
-              }
+              defaultValue={props.isEdit ? "*********" : password}
             />
             <div className={styles.errorMsg}>{passwordError}</div>
           </div>
