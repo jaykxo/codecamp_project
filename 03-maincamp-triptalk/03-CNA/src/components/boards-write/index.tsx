@@ -144,6 +144,9 @@ export default function BoardsComponentWrite(props) {
             className={styles.formInput}
             placeholder="제목을 입력해 주세요."
             onChange={onChangeTitle}
+            defaultValue={
+              props.isEdit ? props.data?.fetchBoard?.title ?? "" : ""
+            }
           />
           <div className={styles.errorMsg}>{titleError}</div>
         </div>
@@ -157,6 +160,9 @@ export default function BoardsComponentWrite(props) {
             className={styles.formTextarea}
             placeholder="내용을 입력해 주세요."
             onChange={onChangeContent}
+            defaultValue={
+              props.isEdit ? props.data?.fetchBoard?.contents ?? "" : ""
+            }
           ></textarea>
           <div className={styles.errorMsg}>{contentError}</div>
         </div>
