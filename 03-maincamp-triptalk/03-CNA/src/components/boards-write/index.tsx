@@ -66,6 +66,7 @@ export default function BoardsComponentWrite(props) {
 
   const onClickSignup = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    
     // 신규 게시글 작성시
     if (!props.isEdit) {
       event.preventDefault();
