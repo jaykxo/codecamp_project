@@ -123,8 +123,36 @@ export default function BoardsComponentWrite(props) {
       );
       if (!입력받은비밀번호) return;
 
-      const original = props.data?.fetchBoard;
+      const updateBoardInput: any = {
+        ...(title && title !== props.data?.fetchBoard?.title && { title }),
+        ...(content &&
+          content !== props.data?.fetchBoard?.contents && {
+            contents: content,
+          }),
+      };
 
+      if (Object.keys(updateBoardInput).length === 0) {
+        alert("수정된 내용이 없습니다.");
+        return;
+      }
+
+      try {
+        await updateBoard({
+          variables: {
+            boardId: props.boardId,
+            password: 입력받은비밀번호,
+            updateBoardInput,
+          },
+        });
+        alert("수정 완료! 수정한 게시글로 이동합니다.");
+        router.push(`/boards/${props.boardId}`);
+      } catch (error: any) {
+        if (error?.graphQLErrors?.length) {
+          alert(error.graphQLErrors.map((e: any) => e.message).join("\n"));
+        } else {
+          alert("수정에 실패했습니다. 다시 시도해 주세요.");
+        }
+      }
     }
   };
 
