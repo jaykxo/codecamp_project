@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, MouseEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";
-import { CREATE_BOARD, UPDATE_BOARD } from "./queries";
+import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARD } from "./queries";
 import { BoardsWriteProps } from "./types";
 
 export function useBoardsWrite(props: BoardsWriteProps) {
@@ -118,6 +118,10 @@ export function useBoardsWrite(props: BoardsWriteProps) {
             password: 입력받은비밀번호,
             updateBoardInput,
           },
+          refetchQueries: [
+            { query: FETCH_BOARD, variables: { boardId: props.boardId } },
+          ],
+          awaitRefetchQueries: true,
         });
         alert("수정 완료! 수정한 게시글로 이동합니다.");
         router.push(`/boards/${props.boardId}`);

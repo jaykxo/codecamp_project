@@ -20,6 +20,9 @@ export const UPDATE_BOARD = gql`
       updateBoardInput: $updateBoardInput
     ) {
       _id
+      title
+      contents
+      updatedAt
     }
   }
 `;
@@ -27,6 +30,7 @@ export const UPDATE_BOARD = gql`
 export const FETCH_BOARD = gql`
   query fetchBoard($boardId: ID!) {
     fetchBoard(boardId: $boardId) {
+      _id
       writer
       title
       contents
