@@ -115,6 +115,10 @@ export default function BoardsComponentWrite(props) {
               className={styles.formInput}
               placeholder="작성자 명을 입력해 주세요."
               onChange={onChangeName}
+              disabled={props.isEdit}
+              defaultValue={
+                props.isEdit ? props.data?.fetchBoard?.writer ?? "" : ""
+              }
             />
             <div className={styles.errorMsg}>{nameError}</div>
           </div>
@@ -127,6 +131,10 @@ export default function BoardsComponentWrite(props) {
               className={styles.formInput}
               placeholder="비밀번호를 입력해 주세요."
               onChange={onChangePassword}
+              disabled={props.isEdit}
+              defaultValue={
+                props.isEdit ? "*********" : password
+              }
             />
             <div className={styles.errorMsg}>{passwordError}</div>
           </div>

@@ -54,6 +54,11 @@
   color: #e74c3c;
 }
 
+.formInput:disabled {
+  background-color: #F2F2F2;
+  border-color: #F2F2F2;
+}
+
 .formInput,
 .formTextarea,
 .postcodeInput {
