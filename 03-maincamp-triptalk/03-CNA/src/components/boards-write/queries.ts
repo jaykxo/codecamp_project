@@ -27,7 +27,7 @@ export const UPDATE_BOARD = gql`
   }
 `;
 
-export const FETCH_BOARD = gql`
+export const FETCH_BOARD_WRITE = gql`
   query fetchBoardWrite($boardId: ID!) {
     fetchBoard(boardId: $boardId) {
       _id
@@ -35,6 +35,16 @@ export const FETCH_BOARD = gql`
       title
       contents
       createdAt
+    }
+  }
+`;
+
+export const FETCH_BOARD_FOR_EDIT = gql`
+  query fetchBoardForEdit($boardId: ID!) {
+    fetchBoard(boardId: $boardId) {
+      writer
+      title
+      contents
     }
   }
 `;

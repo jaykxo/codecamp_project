@@ -3,8 +3,9 @@
 import styles from "./styles.module.css";
 import addIcon from "@/assets/icons/add.svg";
 import { useBoardsWrite } from "./hook"
+import { BoardsWriteProps } from "./types";
 
-export default function BoardsComponentWrite(props) {
+export default function BoardsComponentWrite(props: BoardsWriteProps) {
 
   const {
     nameError,
