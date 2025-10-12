@@ -108,12 +108,12 @@ export function useBoardsWrite(props: BoardsWriteProps) {
       > = {};
 
       if (title && title !== props.data?.fetchBoard?.title) {
-        updateBoardInput.title = title;
-      }
-    
-      if (content && content !== props.data?.fetchBoard?.contents) {
-        updateBoardInput.contents = content;
-      }
+    updateBoardInput.title = title;
+  }
+
+  if (content && content !== props.data?.fetchBoard?.contents) {
+    updateBoardInput.contents = content;
+  }
 
       if (Object.keys(updateBoardInput).length === 0) {
         alert("수정된 내용이 없습니다.");
