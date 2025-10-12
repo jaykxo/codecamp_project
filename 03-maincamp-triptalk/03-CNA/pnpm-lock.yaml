@@ -28,8 +28,14 @@ importers:
         specifier: ^3
         version: 3.3.1
       '@graphql-codegen/cli':
-        specifier: ^6.0.0
+        specifier: 6.0.0
         version: 6.0.0(@types/node@20.19.17)(graphql@16.11.0)(typescript@5.9.2)
+      '@graphql-codegen/client-preset':
+        specifier: 5.1.0
+        version: 5.1.0(graphql@16.11.0)
+      '@graphql-codegen/introspection':
+        specifier: 5.0.0
+        version: 5.0.0(graphql@16.11.0)
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.1.13
@@ -263,6 +269,12 @@ packages:
 
   '@graphql-codegen/gql-tag-operations@5.0.2':
     resolution: {integrity: sha512-iK+LFGv4ihHKeerADFPTL7Iq4iNr+J1jm2+GUMtwTSAL4nGk+BdfyruV7eR53R7Des8NFdI+9hBzKbbob7VwGQ==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+
+  '@graphql-codegen/introspection@5.0.0':
+    resolution: {integrity: sha512-7GaV4o8J3yllz7hdvQVAwB8L5oizeLCRKCU5vEq6XyFsoi4mSVMAPhvDPkNgt4wtXPyEh59NU7QwG84JChrqHQ==}
     engines: {node: '>=16'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -3327,6 +3339,15 @@ snapshots:
       '@graphql-codegen/visitor-plugin-common': 6.1.0(graphql@16.11.0)
       '@graphql-tools/utils': 10.9.1(graphql@16.11.0)
       auto-bind: 4.0.0
+      graphql: 16.11.0
+      tslib: 2.6.3
+    transitivePeerDependencies:
+      - encoding
+
+  '@graphql-codegen/introspection@5.0.0(graphql@16.11.0)':
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 6.0.0(graphql@16.11.0)
+      '@graphql-codegen/visitor-plugin-common': 6.1.0(graphql@16.11.0)
       graphql: 16.11.0
       tslib: 2.6.3
     transitivePeerDependencies:

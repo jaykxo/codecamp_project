@@ -5,7 +5,7 @@ import { useQuery, gql } from "@apollo/client";
 import { useParams } from "next/navigation";
 
 const FETCH_BOARD = gql`
-  query fetchBoard($boardId: ID!) {
+  query fetchBoardForEdit($boardId: ID!) {
     fetchBoard(boardId: $boardId) {
       writer
       title
