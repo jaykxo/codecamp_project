@@ -136,6 +136,8 @@
   width: 100%;
   box-sizing: border-box;
   position: relative;
+  border: 1px solid var(--Gray-Gray-200, #D4D3D3);
+
 }
 
 .textarea {
@@ -158,10 +160,10 @@
 
 .counterInBox {
   position: absolute;
-  right: 12px;
-  bottom: 8px;
-  color: #8e8e93;
-  font-size: 14px;
+  right: 16px;
+  bottom: 12px;
+  color: #ABABAB;
+  font-size: 16px;
 }
 
 .submitBtn {
