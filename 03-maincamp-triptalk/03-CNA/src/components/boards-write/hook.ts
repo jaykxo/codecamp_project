@@ -1,7 +1,12 @@
 import { useState, ChangeEvent, MouseEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";
-import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARD } from "./queries";
+import {
+  CreateBoardDocument,
+  UpdateBoardDocument,
+  FetchBoardDetailDocument,
+  UpdateBoardMutationVariables,
+} from "@/commons/graphql/graphql";
 import { BoardsWriteProps } from "./types";
 
 export function useBoardsWrite(props: BoardsWriteProps) {
@@ -15,8 +20,8 @@ export function useBoardsWrite(props: BoardsWriteProps) {
   const [titleError, setTitleError] = useState("");
   const [contentError, setContentError] = useState("");
 
-  const [createBoard, { loading }] = useMutation(CREATE_BOARD);
-  const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [createBoard, { loading }] = useMutation(CreateBoardDocument);
+  const [updateBoard] = useMutation(UpdateBoardDocument);
 
   const isSubmitDisabled =
     !props.isEdit && (!name || !password || !title || !content || loading);
@@ -98,13 +103,17 @@ export function useBoardsWrite(props: BoardsWriteProps) {
       );
       if (!입력받은비밀번호) return;
 
-      const updateBoardInput: any = {
-        ...(title && title !== props.data?.fetchBoard?.title && { title }),
-        ...(content &&
-          content !== props.data?.fetchBoard?.contents && {
-            contents: content,
-          }),
-      };
+      const updateBoardInput: Partial<
+        UpdateBoardMutationVariables["updateBoardInput"]
+      > = {};
+
+      if (title && title !== props.data?.fetchBoard?.title) {
+        updateBoardInput.title = title;
+      }
+    
+      if (content && content !== props.data?.fetchBoard?.contents) {
+        updateBoardInput.contents = content;
+      }
 
       if (Object.keys(updateBoardInput).length === 0) {
         alert("수정된 내용이 없습니다.");
@@ -119,7 +128,10 @@ export function useBoardsWrite(props: BoardsWriteProps) {
             updateBoardInput,
           },
           refetchQueries: [
-            { query: FETCH_BOARD, variables: { boardId: props.boardId } },
+            {
+              query: FetchBoardDetailDocument,
+              variables: { boardId: props.boardId },
+            },
           ],
           awaitRefetchQueries: true,
         });
