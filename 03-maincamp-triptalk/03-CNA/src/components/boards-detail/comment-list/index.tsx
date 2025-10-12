@@ -1,25 +1,16 @@
 "use client";
 
 import React from "react";
-import { useQuery } from "@apollo/client";
-import { useParams } from "next/navigation";
 import styles from "./styles.module.css";
-import { FETCH_BOARD_COMMENTS } from "./queries";
 import { formatDate } from "@/utils/formatDate";
 import unknownIcon from "@/assets/icons/unknown.png";
 import editIcon from "@/assets/icons/edit.png";
 import deleteIcon from "@/assets/icons/close.png";
 import fiveStars from "@/assets/images/fivestars.png";
+import useCommentList from "./hook";
 
 export default function CommentList() {
-  const { boardId } = useParams<{ boardId: string }>();
-
-  const { data } = useQuery(FETCH_BOARD_COMMENTS, {
-    variables: { boardId },
-    skip: !boardId,
-  });
-
-  const comments = data?.fetchBoardComments ?? [];
+  const { comments } = useCommentList();
 
   return (
     <div className={styles.listFrame}>
