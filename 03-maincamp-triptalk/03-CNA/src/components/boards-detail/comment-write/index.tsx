@@ -5,10 +5,16 @@ import styles from "./styles.module.css";
 import chatIcon from "@/assets/icons/chat.png";
 import fiveStars from "@/assets/images/fivestars.png";
 
+import { useMutation } from "@apollo/client";
+import { useParams } from "next/navigation";
+import { CREATE_BOARD_COMMENT, FETCH_BOARD_COMMENTS } from "./queries";
+
 export default function CommentWrite() {
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [comment, setComment] = useState("");
+  const { boardId } = useParams<{ boardId: string }>();
+  const [createBoardComment, { loading }] = useMutation(CREATE_BOARD_COMMENT);
 
   const commentCount = comment.length;
   const isDisabled = useMemo(() => {
@@ -19,14 +25,32 @@ export default function CommentWrite() {
     );
   }, [writer, password, comment]);
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isDisabled) return;
-    // 실제 등록 로직은 추후 hook/queries로 분리 예정
-    alert("아직 API 미연동: 입력값을 콘솔에 출력합니다.");
-    // eslint-disable-next-line no-console
-    console.log({ writer, password, comment });
-    setComment("");
+    if (isDisabled || !boardId) return;
+    try {
+      await createBoardComment({
+        variables: {
+          boardId,
+          createBoardCommentInput: {
+            writer,
+            password,
+            contents: comment,
+            rating: 0,
+          },
+        },
+        refetchQueries: [
+          { query: FETCH_BOARD_COMMENTS, variables: { boardId } },
+        ],
+        awaitRefetchQueries: true,
+      });
+      setWriter("");
+      setPassword("");
+      setComment("");
+    } catch (error) {
+      console.error(error);
+      alert("댓글 등록에 실패했습니다.");
+    }
   };
 
   return (
@@ -90,7 +114,7 @@ export default function CommentWrite() {
               <button
                 type="submit"
                 className={styles.submitBtn}
-                disabled={isDisabled}
+                disabled={isDisabled || loading}
               >
                 댓글 등록
               </button>
