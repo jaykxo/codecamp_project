@@ -19,7 +19,6 @@
 .inputWrapper {
   display: flex;
   align-items: center;
-  position: relative;
   width: 100%;
 }
 
@@ -39,7 +38,7 @@
   color: var(--color-text-primary);
   transition: all 0.2s ease-in-out;
   outline: none;
-  padding-left: 56px; /* 검색 아이콘 공간 확보 */
+  padding-left: 16px;
 }
 
 .searchBar::placeholder {
@@ -74,7 +73,7 @@
 }
 
 .small .searchBar {
-  padding-left: 40px;
+  padding-left: 12px;
 }
 
 .medium {
@@ -92,7 +91,7 @@
 }
 
 .large .searchBar {
-  padding-left: 64px;
+  padding-left: 20px;
 }
 
 /* ========================================
@@ -156,10 +155,6 @@
    ======================================== */
 
 .searchIcon {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -167,9 +162,10 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 1;
+  margin-right: 8px;
   color: var(--color-text-secondary);
   transition: color 0.2s ease-in-out;
+  flex-shrink: 0;
 }
 
 .searchIcon:hover {
@@ -183,19 +179,16 @@
 }
 
 .small .searchIcon {
-  left: 12px;
   width: 16px;
   height: 16px;
 }
 
 .medium .searchIcon {
-  left: 16px;
   width: 20px;
   height: 20px;
 }
 
 .large .searchIcon {
-  left: 20px;
   width: 24px;
   height: 24px;
 }
