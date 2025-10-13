@@ -8,7 +8,6 @@
  * ======================================== */
 
 .selectbox {
-  position: relative;
   display: inline-flex;
   flex-direction: column;
 }
@@ -25,7 +24,6 @@
   border: 1px solid #c7c7c7;
   background-color: #ffffff;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
   outline: none;
 }
 
@@ -70,11 +68,11 @@
 }
 
 .icon {
-  transition: transform 0.2s ease-in-out;
+  /* 아이콘 기본 스타일 */
 }
 
 .selectbox.open .icon {
-  transform: rotate(180deg);
+  /* 열린 상태에서는 아이콘 회전 없음 */
 }
 
 /* ========================================
@@ -82,11 +80,8 @@
  * ======================================== */
 
 .dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
   border: 1px solid #c7c7c7;
   border-radius: 8px;
@@ -103,7 +98,6 @@
   font-weight: 500;
   color: #1c1c1c;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
 }
 
 .option:hover:not(.optionDisabled) {

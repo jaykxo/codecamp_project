@@ -177,18 +177,18 @@ export const Selectbox = forwardRef<HTMLDivElement, SelectboxProps>(
         className={selectboxClasses}
         {...props}
       >
-          <div
-            ref={selectRef}
-            className={styles.selectContainer}
-            onClick={handleToggle}
-            onKeyDown={handleKeyDown}
-            tabIndex={disabled ? -1 : 0}
-            role="combobox"
-            aria-expanded={isOpen}
-            aria-haspopup="listbox"
-            aria-controls="selectbox-dropdown"
-            aria-disabled={disabled}
-          >
+        <div
+          ref={selectRef}
+          className={styles.selectContainer}
+          onClick={handleToggle}
+          onKeyDown={handleKeyDown}
+          tabIndex={disabled ? -1 : 0}
+          role="combobox"
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+          aria-controls="selectbox-dropdown"
+          aria-disabled={disabled}
+        >
           {/* 선택된 값 표시 영역 */}
           <div className={styles.selectedValue}>
             <span className={styles.text}>
