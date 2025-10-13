@@ -1,0 +1,299 @@
+/* ========================================
+ * Pagination Component Styles
+ * ======================================== */
+
+/* 기본 컨테이너 */
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+}
+
+/* 화살표 버튼 공통 스타일 */
+.arrowButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.arrowDisabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.arrowIcon {
+  width: 24px;
+  height: 24px;
+}
+
+/* 페이지 번호 컨테이너 */
+.pageNumbers {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* 페이지 버튼 공통 스타일 */
+.pageButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: -0.16px;
+  cursor: pointer;
+}
+
+.pageButton:disabled {
+  cursor: not-allowed;
+}
+
+/* ========================================
+ * Variant Styles - Primary
+ * ======================================== */
+
+.primary .pageButton.active {
+  background-color: #f2f2f2;
+  color: #000000;
+  font-weight: 500;
+}
+
+.primary .pageButton.inactive {
+  background-color: #ffffff;
+  color: #777777;
+  font-weight: 400;
+}
+
+
+/* ========================================
+ * Variant Styles - Secondary
+ * ======================================== */
+
+.secondary .pageButton.active {
+  background-color: #497CFF;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.secondary .pageButton.inactive {
+  background-color: #ffffff;
+  color: #777777;
+  font-weight: 400;
+  border: 1px solid #E4E4E4;
+}
+
+
+/* ========================================
+ * Variant Styles - Tertiary
+ * ======================================== */
+
+.tertiary .pageButton.active {
+  background-color: transparent;
+  color: #497CFF;
+  font-weight: 500;
+  border: 2px solid #497CFF;
+}
+
+.tertiary .pageButton.inactive {
+  background-color: transparent;
+  color: #777777;
+  font-weight: 400;
+  border: 1px solid #E4E4E4;
+}
+
+
+/* ========================================
+ * Size Styles - Small
+ * ======================================== */
+
+.small .pageButton {
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+  line-height: 16px;
+  border-radius: 6px;
+}
+
+.small .pageNumbers {
+  gap: 8px;
+}
+
+.small .arrowButton {
+  width: 20px;
+  height: 20px;
+}
+
+.small .arrowIcon {
+  width: 20px;
+  height: 20px;
+}
+
+/* ========================================
+ * Size Styles - Medium (기본값)
+ * ======================================== */
+
+.medium .pageButton {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 8px;
+}
+
+.medium .pageNumbers {
+  gap: 16px;
+}
+
+.medium .arrowButton {
+  width: 24px;
+  height: 24px;
+}
+
+.medium .arrowIcon {
+  width: 24px;
+  height: 24px;
+}
+
+/* ========================================
+ * Size Styles - Large
+ * ======================================== */
+
+.large .pageButton {
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  line-height: 28px;
+  border-radius: 10px;
+}
+
+.large .pageNumbers {
+  gap: 20px;
+}
+
+.large .arrowButton {
+  width: 28px;
+  height: 28px;
+}
+
+.large .arrowIcon {
+  width: 28px;
+  height: 28px;
+}
+
+/* ========================================
+ * Theme Styles - Light (기본값)
+ * ======================================== */
+
+.light .arrowButton {
+  color: #000000;
+}
+
+.light .arrowDisabled {
+  color: #D4D3D3;
+}
+
+/* ========================================
+ * Theme Styles - Dark
+ * ======================================== */
+
+.dark {
+  color: #ffffff;
+}
+
+.dark .pageButton.active {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.dark .pageButton.inactive {
+  background-color: #1C1C1C;
+  color: #ABABAB;
+}
+
+
+.dark .arrowButton {
+  color: #ffffff;
+}
+
+.dark .arrowDisabled {
+  color: #5F5F5F;
+}
+
+/* Dark theme variant overrides */
+.dark.secondary .pageButton.active {
+  background-color: #6DA5FA;
+  color: #000000;
+}
+
+.dark.secondary .pageButton.inactive {
+  background-color: #1C1C1C;
+  color: #ABABAB;
+  border-color: #333333;
+}
+
+
+.dark.tertiary .pageButton.active {
+  background-color: transparent;
+  color: #6DA5FA;
+  border-color: #6DA5FA;
+}
+
+.dark.tertiary .pageButton.inactive {
+  background-color: transparent;
+  color: #ABABAB;
+  border-color: #333333;
+}
+
+
+/* ========================================
+ * Disabled State
+ * ======================================== */
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.disabled .pageButton,
+.disabled .arrowButton {
+  cursor: not-allowed;
+}
+
+/* ========================================
+ * Responsive Design
+ * ======================================== */
+
+@media (max-width: 768px) {
+  .pagination {
+    gap: 4px;
+  }
+  
+  .pageNumbers {
+    gap: 8px;
+  }
+  
+  .large .pageNumbers {
+    gap: 12px;
+  }
+  
+  .medium .pageNumbers {
+    gap: 8px;
+  }
+  
+  .small .pageNumbers {
+    gap: 4px;
+  }
+}
