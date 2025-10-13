@@ -32,7 +32,7 @@ export interface SearchBarProps extends Omit<React.InputHTMLAttributes<HTMLInput
 // SearchBar Component
 // ========================================
 
-export const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
+const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
   (
     {
       variant = 'primary',
