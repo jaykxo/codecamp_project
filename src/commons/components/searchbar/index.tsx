@@ -128,4 +128,5 @@ SearchBar.displayName = 'SearchBar';
 // Export
 // ========================================
 
+export { SearchBar };
 export default SearchBar;
