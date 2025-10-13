@@ -24,7 +24,6 @@
 
 .arrowDisabled {
   cursor: not-allowed;
-  opacity: 0.3;
 }
 
 .arrowIcon {
@@ -48,7 +47,7 @@
   height: 32px;
   border: none;
   border-radius: 8px;
-  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family: var(--font-family-default);
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -66,14 +65,14 @@
  * ======================================== */
 
 .primary .pageButton.active {
-  background-color: #f2f2f2;
-  color: #000000;
+  background-color: var(--color-gray-5);
+  color: var(--color-gray-black);
   font-weight: 500;
 }
 
 .primary .pageButton.inactive {
-  background-color: #ffffff;
-  color: #777777;
+  background-color: var(--color-gray-white);
+  color: var(--color-gray-60);
   font-weight: 400;
 }
 
@@ -83,16 +82,16 @@
  * ======================================== */
 
 .secondary .pageButton.active {
-  background-color: #497CFF;
-  color: #ffffff;
+  background-color: var(--color-blue-50);
+  color: var(--color-gray-white);
   font-weight: 500;
 }
 
 .secondary .pageButton.inactive {
-  background-color: #ffffff;
-  color: #777777;
+  background-color: var(--color-gray-white);
+  color: var(--color-gray-60);
   font-weight: 400;
-  border: 1px solid #E4E4E4;
+  border: 1px solid var(--color-gray-10);
 }
 
 
@@ -102,16 +101,16 @@
 
 .tertiary .pageButton.active {
   background-color: transparent;
-  color: #497CFF;
+  color: var(--color-blue-50);
   font-weight: 500;
-  border: 2px solid #497CFF;
+  border: 2px solid var(--color-blue-50);
 }
 
 .tertiary .pageButton.inactive {
   background-color: transparent;
-  color: #777777;
+  color: var(--color-gray-60);
   font-weight: 400;
-  border: 1px solid #E4E4E4;
+  border: 1px solid var(--color-gray-10);
 }
 
 
@@ -198,11 +197,11 @@
  * ======================================== */
 
 .light .arrowButton {
-  color: #000000;
+  color: var(--color-gray-black);
 }
 
 .light .arrowDisabled {
-  color: #D4D3D3;
+  color: var(--color-gray-20);
 }
 
 /* ========================================
@@ -210,51 +209,51 @@
  * ======================================== */
 
 .dark {
-  color: #ffffff;
+  color: var(--color-gray-white);
 }
 
 .dark .pageButton.active {
-  background-color: #333333;
-  color: #ffffff;
+  background-color: var(--color-gray-80);
+  color: var(--color-gray-white);
 }
 
 .dark .pageButton.inactive {
-  background-color: #1C1C1C;
-  color: #ABABAB;
+  background-color: var(--color-gray-90);
+  color: var(--color-gray-40);
 }
 
 
 .dark .arrowButton {
-  color: #ffffff;
+  color: var(--color-gray-white);
 }
 
 .dark .arrowDisabled {
-  color: #5F5F5F;
+  color: var(--color-gray-70);
 }
 
 /* Dark theme variant overrides */
 .dark.secondary .pageButton.active {
-  background-color: #6DA5FA;
-  color: #000000;
+  background-color: var(--color-blue-40);
+  color: var(--color-gray-black);
 }
 
 .dark.secondary .pageButton.inactive {
-  background-color: #1C1C1C;
-  color: #ABABAB;
-  border-color: #333333;
+  background-color: var(--color-gray-90);
+  color: var(--color-gray-40);
+  border-color: var(--color-gray-80);
 }
 
 
 .dark.tertiary .pageButton.active {
   background-color: transparent;
-  color: #6DA5FA;
-  border-color: #6DA5FA;
+  color: var(--color-blue-40);
+  border-color: var(--color-blue-40);
 }
 
 .dark.tertiary .pageButton.inactive {
   background-color: transparent;
-  color: #ABABAB;
-  border-color: #333333;
+  color: var(--color-gray-40);
+  border-color: var(--color-gray-80);
 }
 
 
@@ -263,7 +262,6 @@
  * ======================================== */
 
 .disabled {
-  opacity: 0.5;
   pointer-events: none;
 }
 
